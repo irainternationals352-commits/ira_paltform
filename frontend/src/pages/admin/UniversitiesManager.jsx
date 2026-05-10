@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../../config/api';
+import { resolveMediaUrl } from '../../utils/media';
 
 const slugify = (value) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 
@@ -25,9 +27,9 @@ const UniversitiesManager = () => {
   const fetchData = async () => {
     try {
       const [uniRes, countryRes, programRes] = await Promise.all([
-        axios.get('http://localhost:8000/api/universities/'),
-        axios.get('http://localhost:8000/api/countries/'),
-        axios.get('http://localhost:8000/api/programs/')
+        axios.get(`${API_BASE_URL}/universities/`),
+        axios.get(`${API_BASE_URL}/countries/`),
+        axios.get(`${API_BASE_URL}/programs/`)
       ]);
       setUniversities(uniRes.data);
       setCountries(countryRes.data);
@@ -41,6 +43,10 @@ const UniversitiesManager = () => {
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFileChange = (field, file) => {
+    setFormData({ ...formData, [field]: file || formData[field] });
   };
 
   // --- Array Handlers ---
@@ -112,14 +118,26 @@ const UniversitiesManager = () => {
       } else if (country) {
         dataToSubmit.country = country;
       }
+
+      const payload = new FormData();
+      Object.entries(dataToSubmit).forEach(([key, value]) => {
+        if (key === 'key_stats' || key === 'facilities' || key === 'popular_courses') {
+          payload.append(key, JSON.stringify(value));
+        } else if (key === 'logo' || key === 'banner_image') {
+          if (value instanceof File) payload.append(key, value);
+        } else if (value !== undefined && value !== null) {
+          payload.append(key, value);
+        }
+      });
       
       if (formData.id) {
-        await axios.patch(`http://localhost:8000/api/universities/${formData.slug}/`, dataToSubmit);
+        await axios.patch(`${API_BASE_URL}/universities/${formData.slug}/`, payload);
       } else {
         if(!dataToSubmit.slug) {
             dataToSubmit.slug = getUniqueSlug(dataToSubmit.name);
+            payload.set('slug', dataToSubmit.slug);
         }
-        await axios.post('http://localhost:8000/api/universities/', dataToSubmit);
+        await axios.post(`${API_BASE_URL}/universities/`, payload);
       }
       setShowForm(false);
       setFormData(initialFormState);
@@ -133,7 +151,7 @@ const UniversitiesManager = () => {
   const deleteUniversity = async (slug) => {
     if (window.confirm("Delete this university?")) {
       try {
-        await axios.delete(`http://localhost:8000/api/universities/${slug}/`);
+        await axios.delete(`${API_BASE_URL}/universities/${slug}/`);
         fetchData();
       } catch (error) {
         alert("Failed to delete.");
@@ -202,6 +220,20 @@ const UniversitiesManager = () => {
             <div className="md:col-span-2">
               <label className="block text-sm font-bold text-gray-700 mb-1">Overview Description</label>
               <textarea name="overview" value={formData.overview} onChange={handleInputChange} rows="3" className="w-full px-3 py-2 rounded-lg border border-gray-300"></textarea>
+            </div>
+            <div>
+              <label className="block text-sm font-bold text-gray-700 mb-1">University Logo</label>
+              <input type="file" accept="image/*" onChange={(e) => handleFileChange('logo', e.target.files?.[0])} className="w-full px-3 py-2 rounded-lg border border-gray-300 bg-white" />
+              {formData.logo && !(formData.logo instanceof File) && (
+                <img src={resolveMediaUrl(formData.logo)} alt="Current university logo" className="mt-3 h-20 w-20 rounded-lg object-contain border border-gray-200 bg-white" />
+              )}
+            </div>
+            <div>
+              <label className="block text-sm font-bold text-gray-700 mb-1">Banner Image</label>
+              <input type="file" accept="image/*" onChange={(e) => handleFileChange('banner_image', e.target.files?.[0])} className="w-full px-3 py-2 rounded-lg border border-gray-300 bg-white" />
+              {formData.banner_image && !(formData.banner_image instanceof File) && (
+                <img src={resolveMediaUrl(formData.banner_image)} alt="Current university banner" className="mt-3 h-20 w-36 rounded-lg object-cover border border-gray-200" />
+              )}
             </div>
           </div>
 

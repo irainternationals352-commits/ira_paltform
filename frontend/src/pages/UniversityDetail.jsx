@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { api } from '../services/api';
 import { motion } from 'framer-motion';
 import { FaMapMarkerAlt, FaCheckCircle, FaBuilding, FaMoneyBillWave, FaArrowRight, FaCalendarAlt, FaTrophy, FaUserGraduate, FaGlobeAmericas } from 'react-icons/fa';
+import { resolveMediaUrl } from '../utils/media';
 
 const UniversityDetail = () => {
   const { slug } = useParams();
@@ -32,13 +33,13 @@ const UniversityDetail = () => {
       {/* Hero Banner */}
       <div className="relative pt-40 pb-32 px-4 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img src={university.banner_image || university.logo} alt={university.name} className="w-full h-full object-cover filter brightness-50" />
+          <img src={resolveMediaUrl(university.banner_image || university.logo)} alt={university.name} className="w-full h-full object-cover filter brightness-50" />
           <div className="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/60 to-transparent"></div>
         </div>
         
         <div className="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row items-center md:items-end gap-8">
           <div className="w-32 h-32 md:w-48 md:h-48 bg-white rounded-2xl p-2 shadow-2xl flex-shrink-0">
-            <img src={university.logo} alt="Logo" className="w-full h-full object-contain rounded-xl" />
+            <img src={resolveMediaUrl(university.logo)} alt="Logo" className="w-full h-full object-contain rounded-xl" />
           </div>
           
           <div className="text-center md:text-left flex-grow">

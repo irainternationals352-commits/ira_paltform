@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { api } from '../services/api';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { resolveMediaUrl } from '../utils/media';
 
 const Countries = () => {
   const [countries, setCountries] = useState([]);
@@ -39,7 +40,7 @@ const Countries = () => {
                 whileHover={{ y: -10 }}
                 className="group relative rounded-3xl overflow-hidden shadow-xl h-96 cursor-pointer"
               >
-                <img src={country.banner_image} alt={country.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <img src={resolveMediaUrl(country.banner_image)} alt={country.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                 <div className="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
                 <div className="absolute bottom-0 left-0 w-full p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform">
                   <h3 className="text-3xl font-bold text-white mb-2">{country.name}</h3>

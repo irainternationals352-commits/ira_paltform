@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { api } from '../services/api';
 import { motion } from 'framer-motion';
 import { FaMapMarkerAlt, FaCheckCircle, FaUniversity, FaFileSignature, FaArrowRight, FaMoneyBillWave, FaClock, FaCalendarCheck, FaGlobeAmericas } from 'react-icons/fa';
+import { resolveMediaUrl } from '../utils/media';
 
 const getItemName = (item) => (typeof item === 'string' ? item : item?.name || '');
 
@@ -33,7 +34,7 @@ const CountryDetail = () => {
       {/* Hero Banner */}
       <div className="relative pt-40 pb-32 px-4 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img src={country.banner_image} alt={country.name} className="w-full h-full object-cover" />
+          <img src={resolveMediaUrl(country.banner_image)} alt={country.name} className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-dark-900 via-dark-900/90 to-dark-900/40"></div>
         </div>
         
@@ -139,7 +140,7 @@ const CountryDetail = () => {
                 <div className="space-y-6">
                   {country.universities.map((uni, idx) => (
                     <div key={idx} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow flex flex-col md:flex-row items-center gap-6">
-                      <img src={uni.logo} alt={uni.name} className="w-24 h-24 object-cover rounded-xl border border-gray-100" />
+                      <img src={resolveMediaUrl(uni.logo)} alt={uni.name} className="w-24 h-24 object-cover rounded-xl border border-gray-100" />
                       <div className="flex-grow text-center md:text-left">
                         <h3 className="text-2xl font-bold text-dark-900 mb-2">{uni.name}</h3>
                         <div className="flex flex-col md:flex-row gap-4 text-gray-500 text-sm font-medium">

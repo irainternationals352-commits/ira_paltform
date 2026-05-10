@@ -1,10 +1,24 @@
 from rest_framework import serializers
+import json
 from .models import (
     Service, ServiceFeature, ServiceProcess,
     Country, CountryFact, CountryWhyStudy, CountryRequirement,
     University, UniversityStat, UniversityCourse, UniversityFacility,
     Enquiry, Program
 )
+
+def parse_json_list(value, field_name):
+    if value in (None, ''):
+        return []
+    if isinstance(value, str):
+        try:
+            parsed = json.loads(value)
+        except json.JSONDecodeError:
+            raise serializers.ValidationError({field_name: 'Invalid JSON list.'})
+        if not isinstance(parsed, list):
+            raise serializers.ValidationError({field_name: 'Expected a list.'})
+        return parsed
+    return value
 
 # Service Serializers
 class ServiceFeatureSerializer(serializers.ModelSerializer):
@@ -24,6 +38,14 @@ class ServiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Service
         fields = ['id', 'slug', 'title', 'short_description', 'full_description', 'icon', 'image', 'features', 'process']
+
+    def to_internal_value(self, data):
+        data = data.copy()
+        if 'features' in data:
+            data['features'] = parse_json_list(data.get('features'), 'features')
+        if 'process' in data:
+            data['process'] = parse_json_list(data.get('process'), 'process')
+        return super().to_internal_value(data)
 
     def create(self, validated_data):
         features_data = validated_data.pop('features', [])
@@ -90,6 +112,12 @@ class UniversitySerializer(serializers.ModelSerializer):
 
     def to_internal_value(self, data):
         data = data.copy()
+        if 'key_stats' in data:
+            data['key_stats'] = parse_json_list(data.get('key_stats'), 'key_stats')
+        if 'popular_courses' in data:
+            data['popular_courses'] = parse_json_list(data.get('popular_courses'), 'popular_courses')
+        if 'facilities' in data:
+            data['facilities'] = parse_json_list(data.get('facilities'), 'facilities')
         country_value = data.get('country')
 
         if country_value and not data.get('country_id'):
@@ -179,6 +207,16 @@ class CountrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Country
         fields = ['id', 'slug', 'name', 'short_description', 'overview', 'banner_image', 'key_facts', 'why_study', 'requirements', 'universities']
+
+    def to_internal_value(self, data):
+        data = data.copy()
+        if 'key_facts' in data:
+            data['key_facts'] = parse_json_list(data.get('key_facts'), 'key_facts')
+        if 'why_study' in data:
+            data['why_study'] = parse_json_list(data.get('why_study'), 'why_study')
+        if 'requirements' in data:
+            data['requirements'] = parse_json_list(data.get('requirements'), 'requirements')
+        return super().to_internal_value(data)
 
     def create(self, validated_data):
         key_facts_data = validated_data.pop('key_facts', [])

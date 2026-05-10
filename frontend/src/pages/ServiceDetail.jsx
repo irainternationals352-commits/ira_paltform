@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { api } from '../services/api';
 import { motion } from 'framer-motion';
 import { FaCheckCircle, FaArrowRight } from 'react-icons/fa';
+import { resolveMediaUrl } from '../utils/media';
 
 const getItemName = (item) => (typeof item === 'string' ? item : item?.name || '');
 
@@ -33,7 +34,7 @@ const ServiceDetail = () => {
       {/* Header Banner */}
       <div className="relative pt-40 pb-32 px-4 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img src={service.image} alt={service.title} className="w-full h-full object-cover" />
+          <img src={resolveMediaUrl(service.image)} alt={service.title} className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-dark-900 via-dark-900/90 to-dark-900/40"></div>
         </div>
         

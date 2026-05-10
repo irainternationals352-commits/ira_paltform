@@ -3,6 +3,7 @@ import { api } from '../services/api';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FaMapMarkerAlt, FaArrowRight, FaSearch } from 'react-icons/fa';
+import { resolveMediaUrl } from '../utils/media';
 
 const Universities = () => {
   const [universities, setUniversities] = useState([]);
@@ -68,10 +69,10 @@ const Universities = () => {
               className="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 flex flex-col group"
             >
               <div className="relative h-48 overflow-hidden">
-                <img src={uni.banner_image || uni.logo} alt={uni.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                <img src={resolveMediaUrl(uni.banner_image || uni.logo)} alt={uni.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-dark-900/80 to-transparent"></div>
                 <div className="absolute bottom-4 left-4 right-4 flex items-center gap-4">
-                  <img src={uni.logo} alt="Logo" className="w-12 h-12 rounded-lg bg-white p-1 shadow-md object-contain" />
+                  <img src={resolveMediaUrl(uni.logo)} alt="Logo" className="w-12 h-12 rounded-lg bg-white p-1 shadow-md object-contain" />
                   <div>
                     <h3 className="text-white font-bold text-lg leading-tight line-clamp-1">{uni.name}</h3>
                     <p className="text-primary-200 text-sm">{uni.country}</p>

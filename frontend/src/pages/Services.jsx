@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
 import { company } from '../config/company';
+import { resolveMediaUrl } from '../utils/media';
 
 const getItemName = (item) => (typeof item === 'string' ? item : item?.name || '');
 
@@ -55,7 +56,7 @@ const Services = () => {
               className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow border border-gray-100 flex flex-col h-full"
             >
               <div className="h-48 overflow-hidden">
-                <img src={service.image} alt={service.title} className="w-full h-full object-cover transition-transform duration-500 hover:scale-110" />
+                <img src={resolveMediaUrl(service.image)} alt={service.title} className="w-full h-full object-cover transition-transform duration-500 hover:scale-110" />
               </div>
               <div className="p-8 flex-grow flex flex-col">
                 <h3 className="text-2xl font-bold text-dark-900 mb-3">{service.title}</h3>

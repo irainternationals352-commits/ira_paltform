@@ -1,22 +1,26 @@
 from rest_framework import viewsets, status, permissions
+from rest_framework.parsers import FormParser, JSONParser, MultiPartParser
 from rest_framework.response import Response
 from .models import Service, Country, University, Enquiry, Program
 from .serializers import ServiceSerializer, CountrySerializer, UniversitySerializer, EnquirySerializer, ProgramSerializer
 
 class ServiceViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    parser_classes = [JSONParser, MultiPartParser, FormParser]
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer
     lookup_field = 'slug'
 
 class CountryViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    parser_classes = [JSONParser, MultiPartParser, FormParser]
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
     lookup_field = 'slug'
 
 class UniversityViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    parser_classes = [JSONParser, MultiPartParser, FormParser]
     queryset = University.objects.all()
     serializer_class = UniversitySerializer
     lookup_field = 'slug'

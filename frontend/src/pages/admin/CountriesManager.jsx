@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../../config/api';
+import { resolveMediaUrl } from '../../utils/media';
 
 const CountriesManager = () => {
   const [countries, setCountries] = useState([]);
@@ -17,7 +19,7 @@ const CountriesManager = () => {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/api/countries/');
+      const res = await axios.get(`${API_BASE_URL}/countries/`);
       setCountries(res.data);
     } catch (error) {
       console.error("Failed to fetch data", error);
@@ -28,6 +30,10 @@ const CountriesManager = () => {
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFileChange = (e) => {
+    setFormData({ ...formData, banner_image: e.target.files?.[0] || formData.banner_image });
   };
 
   const handleArrayChange = (index, field, key, value) => {
@@ -59,14 +65,21 @@ const CountriesManager = () => {
       dataToSubmit.why_study = dataToSubmit.why_study.filter(w => w.name.trim());
       dataToSubmit.requirements = dataToSubmit.requirements.filter(r => r.name.trim());
 
-      if (typeof dataToSubmit.banner_image === 'string') {
-        delete dataToSubmit.banner_image;
-      }
+      const payload = new FormData();
+      Object.entries(dataToSubmit).forEach(([key, value]) => {
+        if (key === 'key_facts' || key === 'why_study' || key === 'requirements') {
+          payload.append(key, JSON.stringify(value));
+        } else if (key === 'banner_image') {
+          if (value instanceof File) payload.append(key, value);
+        } else if (value !== undefined && value !== null) {
+          payload.append(key, value);
+        }
+      });
       
       if (formData.id) {
-        await axios.patch(`http://localhost:8000/api/countries/${formData.slug}/`, dataToSubmit);
+        await axios.patch(`${API_BASE_URL}/countries/${formData.slug}/`, payload);
       } else {
-        await axios.post('http://localhost:8000/api/countries/', dataToSubmit);
+        await axios.post(`${API_BASE_URL}/countries/`, payload);
       }
       setShowForm(false);
       setFormData(initialFormState);
@@ -79,7 +92,7 @@ const CountriesManager = () => {
   const deleteCountry = async (slug) => {
     if (window.confirm("Delete this country? This might delete associated universities!")) {
       try {
-        await axios.delete(`http://localhost:8000/api/countries/${slug}/`);
+        await axios.delete(`${API_BASE_URL}/countries/${slug}/`);
         fetchData();
       } catch (error) {
         alert("Failed to delete.");
@@ -149,6 +162,13 @@ const CountriesManager = () => {
             <div className="md:col-span-2">
               <label className="block text-sm font-bold text-gray-700 mb-1">Overview</label>
               <textarea name="overview" value={formData.overview} onChange={handleInputChange} rows="3" className="w-full px-3 py-2 rounded-lg border border-gray-300"></textarea>
+            </div>
+            <div className="md:col-span-2">
+              <label className="block text-sm font-bold text-gray-700 mb-1">Banner Image</label>
+              <input type="file" accept="image/*" onChange={handleFileChange} className="w-full px-3 py-2 rounded-lg border border-gray-300 bg-white" />
+              {formData.banner_image && !(formData.banner_image instanceof File) && (
+                <img src={resolveMediaUrl(formData.banner_image)} alt="Current country banner" className="mt-3 h-28 w-48 rounded-lg object-cover border border-gray-200" />
+              )}
             </div>
           </div>
 

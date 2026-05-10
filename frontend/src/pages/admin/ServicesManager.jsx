@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../../config/api';
+import { resolveMediaUrl } from '../../utils/media';
 
 const ServicesManager = () => {
   const [services, setServices] = useState([]);
@@ -17,7 +19,7 @@ const ServicesManager = () => {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/api/services/');
+      const res = await axios.get(`${API_BASE_URL}/services/`);
       setServices(res.data);
     } catch (error) {
       console.error("Failed to fetch data", error);
@@ -28,6 +30,10 @@ const ServicesManager = () => {
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFileChange = (e) => {
+    setFormData({ ...formData, image: e.target.files?.[0] || formData.image });
   };
 
   const handleArrayChange = (index, field, key, value) => {
@@ -58,14 +64,21 @@ const ServicesManager = () => {
       dataToSubmit.features = dataToSubmit.features.filter(f => f.name.trim());
       dataToSubmit.process = dataToSubmit.process.filter(p => p.name.trim());
       
-      if (typeof dataToSubmit.image === 'string') {
-        delete dataToSubmit.image;
-      }
+      const payload = new FormData();
+      Object.entries(dataToSubmit).forEach(([key, value]) => {
+        if (key === 'features' || key === 'process') {
+          payload.append(key, JSON.stringify(value));
+        } else if (key === 'image') {
+          if (value instanceof File) payload.append(key, value);
+        } else if (value !== undefined && value !== null) {
+          payload.append(key, value);
+        }
+      });
       
       if (formData.id) {
-        await axios.patch(`http://localhost:8000/api/services/${formData.slug}/`, dataToSubmit);
+        await axios.patch(`${API_BASE_URL}/services/${formData.slug}/`, payload);
       } else {
-        await axios.post('http://localhost:8000/api/services/', dataToSubmit);
+        await axios.post(`${API_BASE_URL}/services/`, payload);
       }
       setShowForm(false);
       setFormData(initialFormState);
@@ -78,7 +91,7 @@ const ServicesManager = () => {
   const deleteService = async (slug) => {
     if (window.confirm("Delete this service?")) {
       try {
-        await axios.delete(`http://localhost:8000/api/services/${slug}/`);
+        await axios.delete(`${API_BASE_URL}/services/${slug}/`);
         fetchData();
       } catch (error) {
         alert("Failed to delete.");
@@ -147,6 +160,13 @@ const ServicesManager = () => {
             <div>
               <label className="block text-sm font-bold text-gray-700 mb-1">Full Description</label>
               <textarea name="full_description" value={formData.full_description} onChange={handleInputChange} rows="3" className="w-full px-3 py-2 rounded-lg border border-gray-300"></textarea>
+            </div>
+            <div>
+              <label className="block text-sm font-bold text-gray-700 mb-1">Service Image</label>
+              <input type="file" accept="image/*" onChange={handleFileChange} className="w-full px-3 py-2 rounded-lg border border-gray-300 bg-white" />
+              {formData.image && !(formData.image instanceof File) && (
+                <img src={resolveMediaUrl(formData.image)} alt="Current service" className="mt-3 h-24 w-40 rounded-lg object-cover border border-gray-200" />
+              )}
             </div>
           </div>
           

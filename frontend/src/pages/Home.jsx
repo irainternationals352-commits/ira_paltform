@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaGraduationCap, FaGlobeAmericas, FaArrowRight } from 'react-icons/fa';
 import { company } from '../config/company';
+import { resolveMediaUrl } from '../utils/media';
 
 const Home = () => {
   const [data, setData] = useState(null);
@@ -175,7 +176,7 @@ const Home = () => {
                   transition={{ delay: index * 0.1 }}
                   className="relative rounded-3xl overflow-hidden h-96 group cursor-pointer shadow-2xl"
                 >
-                  <img src={country.banner_image} alt={country.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                  <img src={resolveMediaUrl(country.banner_image)} alt={country.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                   {/* Better gradient for text visibility */}
                   <div className="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/60 to-transparent opacity-90 group-hover:opacity-100 transition-opacity"></div>
                   
