@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FaUsers, FaUniversity, FaGlobeAmericas, FaBriefcase } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { API_BASE_URL } from '../../config/api';
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({
@@ -15,10 +16,10 @@ const AdminDashboard = () => {
     const fetchStats = async () => {
       try {
         const [leadsRes, uniRes, countriesRes, servicesRes] = await Promise.all([
-          axios.get('http://localhost:8000/api/enquiries/'),
-          axios.get('http://localhost:8000/api/universities/'),
-          axios.get('http://localhost:8000/api/countries/'),
-          axios.get('http://localhost:8000/api/services/')
+          axios.get(`${API_BASE_URL}/enquiries/`),
+          axios.get(`${API_BASE_URL}/universities/`),
+          axios.get(`${API_BASE_URL}/countries/`),
+          axios.get(`${API_BASE_URL}/services/`)
         ]);
         
         setStats({

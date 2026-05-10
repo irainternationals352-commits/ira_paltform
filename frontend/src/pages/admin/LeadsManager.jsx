@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../../config/api';
 
 const LeadsManager = () => {
   const [leads, setLeads] = useState([]);
@@ -11,7 +12,7 @@ const LeadsManager = () => {
 
   const fetchLeads = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/api/enquiries/');
+      const res = await axios.get(`${API_BASE_URL}/enquiries/`);
       setLeads(res.data);
     } catch (error) {
       console.error("Failed to fetch leads", error);
@@ -23,7 +24,7 @@ const LeadsManager = () => {
   const deleteLead = async (id) => {
     if (window.confirm("Are you sure you want to delete this lead?")) {
       try {
-        await axios.delete(`http://localhost:8000/api/enquiries/${id}/`);
+        await axios.delete(`${API_BASE_URL}/enquiries/${id}/`);
         fetchLeads();
       } catch (error) {
         alert("Failed to delete lead");

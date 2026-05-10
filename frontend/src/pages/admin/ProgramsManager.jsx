@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../../config/api';
 
 const ProgramsManager = () => {
   const [programs, setPrograms] = useState([]);
@@ -21,7 +22,7 @@ const ProgramsManager = () => {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/api/programs/');
+      const res = await axios.get(`${API_BASE_URL}/programs/`);
       setPrograms(res.data);
     } catch (error) {
       console.error("Failed to fetch programs", error);
@@ -66,9 +67,9 @@ const ProgramsManager = () => {
       dataToSubmit.universities = dataToSubmit.universities.filter(s => s.trim());
       
       if (formData.id) {
-        await axios.patch(`http://localhost:8000/api/programs/${formData.slug}/`, dataToSubmit);
+        await axios.patch(`${API_BASE_URL}/programs/${formData.slug}/`, dataToSubmit);
       } else {
-        await axios.post('http://localhost:8000/api/programs/', dataToSubmit);
+        await axios.post(`${API_BASE_URL}/programs/`, dataToSubmit);
       }
       setShowForm(false);
       setFormData(initialFormState);
@@ -82,7 +83,7 @@ const ProgramsManager = () => {
   const deleteProgram = async (slug) => {
     if (window.confirm("Delete this program?")) {
       try {
-        await axios.delete(`http://localhost:8000/api/programs/${slug}/`);
+        await axios.delete(`${API_BASE_URL}/programs/${slug}/`);
         fetchData();
       } catch (error) {
         alert("Failed to delete.");

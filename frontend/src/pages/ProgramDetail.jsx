@@ -3,6 +3,7 @@ import { useParams, Link, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaArrowLeft, FaMoneyBillWave, FaClock, FaGraduationCap, FaBook, FaUsers, FaStar } from 'react-icons/fa';
 import axios from 'axios';
+import { API_BASE_URL } from '../config/api';
 
 const ProgramDetail = () => {
   const { programName } = useParams();
@@ -20,7 +21,7 @@ const ProgramDetail = () => {
       try {
         const decodedName = decodeURIComponent(programName);
         const slug = decodedName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-        const res = await axios.get(`http://localhost:8000/api/programs/${slug}/`);
+        const res = await axios.get(`${API_BASE_URL}/programs/${slug}/`);
         setProgram(res.data);
       } catch (error) {
         console.error("Failed to fetch program");
