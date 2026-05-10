@@ -37,7 +37,11 @@ CSRF_TRUSTED_ORIGINS = [
     'http://13.62.103.35',
     'http://irainternationals.com',
     'http://www.irainternationals.com',
+    'https://irainternationals.com',
+    'https://www.irainternationals.com',
 ]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 # Application definition
