@@ -1,9 +1,9 @@
 import axios from 'axios';
+import { API_BASE_URL } from '../config/api';
 
 // Since the Django backend is not ready, we will use mock data for now.
 // Once backend is ready, switch USE_MOCK to false and set API_BASE_URL.
 const USE_MOCK = false;
-const API_BASE_URL = 'http://localhost:8000/api';
 
 const mockData = {
   home: {
