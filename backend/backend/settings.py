@@ -25,7 +25,19 @@ SECRET_KEY = 'django-insecure-a3ky$1^g_&32@l#up_0&5a9evt%ac3vev(p!cmwn39xr9!39%_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '13.62.103.35',
+    'irainternationals.com',
+    'www.irainternationals.com',
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://13.62.103.35',
+    'http://irainternationals.com',
+    'http://www.irainternationals.com',
+]
 
 
 # Application definition
