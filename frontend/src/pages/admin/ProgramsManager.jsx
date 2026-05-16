@@ -9,6 +9,7 @@ const ProgramsManager = () => {
 
   const initialFormState = {
     name: '', slug: '', description: '', duration: '', degree: '', average_fee: '',
+    show_in_listing: true,
     career_opportunities: [],
     skills: [],
     requirements: [],
@@ -32,7 +33,8 @@ const ProgramsManager = () => {
   };
 
   const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    setFormData({ ...formData, [e.target.name]: value });
   };
 
   // --- Array Handlers for Simple Strings ---
@@ -165,6 +167,16 @@ const ProgramsManager = () => {
               <label className="block text-sm font-bold text-gray-700 mb-1">Description *</label>
               <textarea name="description" required value={formData.description} onChange={handleInputChange} rows="3" className="w-full px-3 py-2 rounded-lg border border-gray-300"></textarea>
             </div>
+            <label className="flex items-center gap-3 rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm font-bold text-gray-700">
+              <input
+                type="checkbox"
+                name="show_in_listing"
+                checked={Boolean(formData.show_in_listing)}
+                onChange={handleInputChange}
+                className="h-4 w-4"
+              />
+              Show on program page
+            </label>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -187,6 +199,7 @@ const ProgramsManager = () => {
               <th className="p-4 font-semibold">Program</th>
               <th className="p-4 font-semibold">Degree & Duration</th>
               <th className="p-4 font-semibold">Fee</th>
+              <th className="p-4 font-semibold">Program Page</th>
               <th className="p-4 font-semibold text-right">Actions</th>
             </tr>
           </thead>
@@ -202,6 +215,11 @@ const ProgramsManager = () => {
                   <div>{prog.duration}</div>
                 </td>
                 <td className="p-4 text-sm text-gray-600">{prog.average_fee}</td>
+                <td className="p-4 text-sm font-bold">
+                  <span className={prog.show_in_listing ? 'text-green-600' : 'text-gray-400'}>
+                    {prog.show_in_listing ? 'Yes' : 'No'}
+                  </span>
+                </td>
                 <td className="p-4 text-right">
                   <button onClick={() => editProgram(prog)} className="text-primary-600 hover:text-primary-800 font-medium text-sm mr-4 transition-colors">Edit</button>
                   <button onClick={() => deleteProgram(prog.slug)} className="text-red-500 hover:text-red-700 font-medium text-sm transition-colors">Delete</button>

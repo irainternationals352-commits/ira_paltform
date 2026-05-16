@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { FaMapMarkerAlt, FaArrowRight, FaSearch } from 'react-icons/fa';
 import { resolveMediaUrl } from '../utils/media';
 
+const normalizeSearch = (value) => String(value || '').toLowerCase().trim();
+
 const Universities = () => {
   const [universities, setUniversities] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -12,22 +14,33 @@ const Universities = () => {
   useEffect(() => {
     const fetchData = async () => {
       const res = await api.getUniversities();
-      setUniversities(res.data);
+      setUniversities(res.data.filter(uni => uni.show_in_listing !== false));
     };
     fetchData();
   }, []);
 
   const filteredUniversities = universities.filter(uni => {
-    const term = searchTerm.toLowerCase();
-    return (
-      uni?.name?.toLowerCase().includes(term) || 
-      uni?.country?.toLowerCase().includes(term) ||
-      (uni?.location && uni.location.toLowerCase().includes(term)) ||
-      uni?.popular_courses?.some(course => {
-        const courseName = typeof course === 'string' ? course : course?.name;
-        return courseName?.toLowerCase().includes(term);
-      })
-    );
+    const term = normalizeSearch(searchTerm);
+    if (!term) return true;
+
+    const courseText = (uni?.popular_courses || [])
+      .map(course => typeof course === 'string'
+        ? course
+        : [course?.name, course?.duration, course?.fee, course?.intake].filter(Boolean).join(' ')
+      )
+      .join(' ');
+
+    const searchableText = [
+      uni?.name,
+      uni?.country,
+      uni?.country_name,
+      uni?.location,
+      uni?.city,
+      uni?.ranking,
+      courseText
+    ].map(normalizeSearch).join(' ');
+
+    return searchableText.includes(term);
   });
 
   return (
@@ -46,7 +59,7 @@ const Universities = () => {
           <div className="relative">
             <input 
               type="text" 
-              placeholder="Search by university name, country, or program..." 
+              placeholder="Search by university, program, country, city, or location..." 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full px-6 py-4 rounded-full text-dark-900 font-medium focus:outline-none focus:ring-4 focus:ring-primary-500/30 shadow-2xl pl-14"

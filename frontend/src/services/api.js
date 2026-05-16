@@ -9,7 +9,7 @@ const mockData = {
   home: {
     hero_title: "Shape Your Global Future Today",
     hero_subtitle: "Expert guidance for your study abroad journey. From university selection to visa assistance, we are with you every step of the way.",
-    hero_image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80",
+    hero_image: "https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&q=80",
     button_text: "Book Free Consultation",
     button_link: "/contact"
   },
@@ -18,7 +18,7 @@ const mockData = {
     description: "We are a premier educational consultancy dedicated to helping students achieve their dreams of studying abroad. With years of experience and a global network of partner universities.",
     mission: "To provide transparent, ethical, and expert guidance to students aspiring to study internationally.",
     vision: "To be the most trusted global education consultancy bridging the gap between students and world-class universities.",
-    image: "https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80",
   },
   services: [
     { 

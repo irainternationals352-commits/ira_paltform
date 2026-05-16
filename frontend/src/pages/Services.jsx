@@ -17,7 +17,7 @@ const Services = () => {
     const fetchData = async () => {
       try {
         const res = await api.getServices();
-        setServices(res.data);
+        setServices(res.data.filter(item => item.show_in_listing !== false));
       } catch (err) {
         console.error('Failed to fetch services', err);
         setError('Unable to load services right now. Please try again later.');

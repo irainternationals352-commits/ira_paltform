@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { api } from '../services/api';
 import { motion } from 'framer-motion';
+import { resolveMediaUrl } from '../utils/media';
 
 const About = () => {
   const [data, setData] = useState(null);
@@ -38,7 +39,7 @@ const About = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <img src={data.image} alt="About Us" className="rounded-2xl shadow-2xl" />
+            <img src={resolveMediaUrl(data.image)} alt="About Us" className="rounded-2xl shadow-2xl" />
           </motion.div>
           <motion.div 
             initial={{ opacity: 0, x: 30 }}

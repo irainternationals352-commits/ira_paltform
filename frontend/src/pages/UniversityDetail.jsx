@@ -15,7 +15,7 @@ const UniversityDetail = () => {
     const fetchUniversity = async () => {
       try {
         const res = await api.getUniversityBySlug(slug);
-        setUniversity(res.data);
+        setUniversity(res.data.show_in_listing === false ? null : res.data);
       } catch (error) {
         console.error("Failed to fetch university");
       } finally {

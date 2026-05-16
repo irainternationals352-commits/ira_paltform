@@ -10,7 +10,7 @@ const Countries = () => {
   useEffect(() => {
     const fetchData = async () => {
       const res = await api.getCountries();
-      setCountries(res.data);
+      setCountries(res.data.filter(item => item.show_in_listing !== false));
     };
     fetchData();
   }, []);

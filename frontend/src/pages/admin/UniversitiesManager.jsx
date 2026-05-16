@@ -14,6 +14,7 @@ const UniversitiesManager = () => {
   
   const initialFormState = {
     name: '', slug: '', country: '', location: '', ranking: '', tuition_fee: '', overview: '',
+    show_in_listing: true,
     key_stats: [],
     facilities: [],
     popular_courses: []
@@ -33,7 +34,7 @@ const UniversitiesManager = () => {
       ]);
       setUniversities(uniRes.data);
       setCountries(countryRes.data);
-      setPrograms(programRes.data);
+      setPrograms(programRes.data.filter(program => program.show_in_listing !== false));
     } catch (error) {
       console.error("Failed to fetch data", error);
     } finally {
@@ -42,7 +43,8 @@ const UniversitiesManager = () => {
   };
 
   const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    setFormData({ ...formData, [e.target.name]: value });
   };
 
   const handleFileChange = (field, file) => {
@@ -107,6 +109,24 @@ const UniversitiesManager = () => {
       .join('\n');
   };
 
+  const cleanUniversityPayload = (data) => ({
+    ...data,
+    key_stats: (data.key_stats || [])
+      .map(({ label = '', value = '' }) => ({ label: label.trim(), value: value.trim() }))
+      .filter(stat => stat.label || stat.value),
+    facilities: (data.facilities || [])
+      .map(({ facility_name = '' }) => ({ facility_name: facility_name.trim() }))
+      .filter(facility => facility.facility_name),
+    popular_courses: (data.popular_courses || [])
+      .map(({ name = '', duration = '', fee = '', intake = '' }) => ({
+        name: name.trim(),
+        duration: duration.trim(),
+        fee: fee.trim(),
+        intake: intake.trim()
+      }))
+      .filter(course => course.name || course.duration || course.fee || course.intake)
+  });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -119,8 +139,9 @@ const UniversitiesManager = () => {
         dataToSubmit.country = country;
       }
 
+      const cleanedData = cleanUniversityPayload(dataToSubmit);
       const payload = new FormData();
-      Object.entries(dataToSubmit).forEach(([key, value]) => {
+      Object.entries(cleanedData).forEach(([key, value]) => {
         if (key === 'key_stats' || key === 'facilities' || key === 'popular_courses') {
           payload.append(key, JSON.stringify(value));
         } else if (key === 'logo' || key === 'banner_image') {
@@ -133,9 +154,9 @@ const UniversitiesManager = () => {
       if (formData.id) {
         await axios.patch(`${API_BASE_URL}/universities/${formData.slug}/`, payload);
       } else {
-        if(!dataToSubmit.slug) {
-            dataToSubmit.slug = getUniqueSlug(dataToSubmit.name);
-            payload.set('slug', dataToSubmit.slug);
+        if(!cleanedData.slug) {
+            cleanedData.slug = getUniqueSlug(cleanedData.name);
+            payload.set('slug', cleanedData.slug);
         }
         await axios.post(`${API_BASE_URL}/universities/`, payload);
       }
@@ -235,6 +256,16 @@ const UniversitiesManager = () => {
                 <img src={resolveMediaUrl(formData.banner_image)} alt="Current university banner" className="mt-3 h-20 w-36 rounded-lg object-cover border border-gray-200" />
               )}
             </div>
+            <label className="flex items-center gap-3 rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm font-bold text-gray-700">
+              <input
+                type="checkbox"
+                name="show_in_listing"
+                checked={Boolean(formData.show_in_listing)}
+                onChange={handleInputChange}
+                className="h-4 w-4"
+              />
+              Show on university page
+            </label>
           </div>
 
           {/* Key Stats */}
@@ -308,6 +339,7 @@ const UniversitiesManager = () => {
               <th className="p-4 font-semibold">University</th>
               <th className="p-4 font-semibold">Location</th>
               <th className="p-4 font-semibold">Fee Range</th>
+              <th className="p-4 font-semibold">University Page</th>
               <th className="p-4 font-semibold text-right">Actions</th>
             </tr>
           </thead>
@@ -322,6 +354,11 @@ const UniversitiesManager = () => {
                   {uni.location}, <span className="font-bold">{uni.country_name}</span>
                 </td>
                 <td className="p-4 text-sm text-gray-600">{uni.tuition_fee}</td>
+                <td className="p-4 text-sm font-bold">
+                  <span className={uni.show_in_listing ? 'text-green-600' : 'text-gray-400'}>
+                    {uni.show_in_listing ? 'Yes' : 'No'}
+                  </span>
+                </td>
                 <td className="p-4 text-right">
                   <button onClick={() => editUniversity(uni)} className="text-primary-600 hover:text-primary-800 font-medium text-sm mr-4 transition-colors">Edit</button>
                   <button onClick={() => deleteUniversity(uni.slug)} className="text-red-500 hover:text-red-700 font-medium text-sm transition-colors">Delete</button>

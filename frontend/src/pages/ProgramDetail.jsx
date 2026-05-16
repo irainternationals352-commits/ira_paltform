@@ -22,7 +22,7 @@ const ProgramDetail = () => {
         const decodedName = decodeURIComponent(programName);
         const slug = decodedName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
         const res = await axios.get(`${API_BASE_URL}/programs/${slug}/`);
-        setProgram(res.data);
+        setProgram(res.data.show_in_listing === false ? null : res.data);
       } catch (error) {
         console.error("Failed to fetch program");
       } finally {

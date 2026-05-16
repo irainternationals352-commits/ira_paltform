@@ -7,6 +7,9 @@ class Service(models.Model):
     full_description = models.TextField()
     icon = models.CharField(max_length=50, help_text="e.g. FaUserTie")
     image = models.ImageField(upload_to='services/', blank=True, null=True)
+    is_visible = models.BooleanField(default=True)
+    show_on_home = models.BooleanField(default=True)
+    show_in_listing = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
@@ -31,6 +34,10 @@ class Country(models.Model):
     short_description = models.CharField(max_length=500)
     overview = models.TextField()
     banner_image = models.ImageField(upload_to='countries/', blank=True, null=True)
+    is_visible = models.BooleanField(default=True)
+    show_on_home = models.BooleanField(default=True)
+    show_in_listing = models.BooleanField(default=True)
+    show_in_footer = models.BooleanField(default=True)
 
     class Meta:
         verbose_name_plural = "Countries"
@@ -70,6 +77,7 @@ class University(models.Model):
     overview = models.TextField()
     logo = models.ImageField(upload_to='universities/logos/', blank=True, null=True)
     banner_image = models.ImageField(upload_to='universities/banners/', blank=True, null=True)
+    show_in_listing = models.BooleanField(default=True)
 
     class Meta:
         verbose_name_plural = "Universities"
@@ -150,6 +158,7 @@ class Program(models.Model):
     skills = models.JSONField(default=list)
     requirements = models.JSONField(default=list)
     universities = models.JSONField(default=list)
+    show_in_listing = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name

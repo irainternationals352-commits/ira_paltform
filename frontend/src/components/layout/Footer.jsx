@@ -1,10 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube, FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import { company, hasCompanyContact } from '../../config/company';
+import { api } from '../../services/api';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [footerCountries, setFooterCountries] = useState([]);
+
+  useEffect(() => {
+    const fetchFooterCountries = async () => {
+      try {
+        const res = await api.getCountries();
+        setFooterCountries(
+          res.data
+            .filter(country => country.show_in_footer !== false)
+            .slice(0, 4)
+        );
+      } catch (error) {
+        console.error('Failed to load footer countries', error);
+      }
+    };
+    fetchFooterCountries();
+  }, []);
 
   return (
     <footer className="bg-dark-900 text-white pt-16 pb-8 border-t border-dark-800">
@@ -61,10 +79,13 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-6 text-white relative inline-block after:content-[''] after:absolute after:w-1/2 after:h-0.5 after:bg-primary-500 after:bottom-[-8px] after:left-0">Top Destinations</h4>
             <ul className="space-y-3">
-              <li><Link to="/countries/usa" className="text-gray-400 hover:text-primary-500 transition-colors">Study in USA</Link></li>
-              <li><Link to="/countries/uk" className="text-gray-400 hover:text-primary-500 transition-colors">Study in UK</Link></li>
-              <li><Link to="/countries/canada" className="text-gray-400 hover:text-primary-500 transition-colors">Study in Canada</Link></li>
-              <li><Link to="/countries/australia" className="text-gray-400 hover:text-primary-500 transition-colors">Study in Australia</Link></li>
+              {footerCountries.map(country => (
+                <li key={country.slug}>
+                  <Link to={`/countries/${country.slug}`} className="text-gray-400 hover:text-primary-500 transition-colors">
+                    Study in {country.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 

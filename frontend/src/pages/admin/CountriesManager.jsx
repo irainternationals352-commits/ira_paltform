@@ -9,6 +9,7 @@ const CountriesManager = () => {
   const [showForm, setShowForm] = useState(false);
   const initialFormState = {
     name: '', slug: '', short_description: '', overview: '',
+    show_on_home: true, show_in_listing: true, show_in_footer: true,
     key_facts: [], why_study: [], requirements: []
   };
   const [formData, setFormData] = useState(initialFormState);
@@ -29,7 +30,8 @@ const CountriesManager = () => {
   };
 
   const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    setFormData({ ...formData, [e.target.name]: value });
   };
 
   const handleFileChange = (e) => {
@@ -53,6 +55,19 @@ const CountriesManager = () => {
     setFormData({ ...formData, [field]: newArray });
   };
 
+  const cleanCountryPayload = (data) => ({
+    ...data,
+    key_facts: (data.key_facts || [])
+      .map(({ label = '', value = '' }) => ({ label: label.trim(), value: value.trim() }))
+      .filter(fact => fact.label || fact.value),
+    why_study: (data.why_study || [])
+      .map(({ name = '' }) => ({ name: name.trim() }))
+      .filter(item => item.name),
+    requirements: (data.requirements || [])
+      .map(({ name = '' }) => ({ name: name.trim() }))
+      .filter(item => item.name)
+  });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -61,12 +76,10 @@ const CountriesManager = () => {
           dataToSubmit.slug = dataToSubmit.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
       }
 
-      dataToSubmit.key_facts = dataToSubmit.key_facts.filter(f => f.label.trim() && f.value.trim());
-      dataToSubmit.why_study = dataToSubmit.why_study.filter(w => w.name.trim());
-      dataToSubmit.requirements = dataToSubmit.requirements.filter(r => r.name.trim());
+      const cleanedData = cleanCountryPayload(dataToSubmit);
 
       const payload = new FormData();
-      Object.entries(dataToSubmit).forEach(([key, value]) => {
+      Object.entries(cleanedData).forEach(([key, value]) => {
         if (key === 'key_facts' || key === 'why_study' || key === 'requirements') {
           payload.append(key, JSON.stringify(value));
         } else if (key === 'banner_image') {
@@ -170,6 +183,36 @@ const CountriesManager = () => {
                 <img src={resolveMediaUrl(formData.banner_image)} alt="Current country banner" className="mt-3 h-28 w-48 rounded-lg object-cover border border-gray-200" />
               )}
             </div>
+            <label className="flex items-center gap-3 rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm font-bold text-gray-700">
+              <input
+                type="checkbox"
+                name="show_on_home"
+                checked={Boolean(formData.show_on_home)}
+                onChange={handleInputChange}
+                className="h-4 w-4"
+              />
+              Show on home page
+            </label>
+            <label className="flex items-center gap-3 rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm font-bold text-gray-700">
+              <input
+                type="checkbox"
+                name="show_in_listing"
+                checked={Boolean(formData.show_in_listing)}
+                onChange={handleInputChange}
+                className="h-4 w-4"
+              />
+              Show in countries page
+            </label>
+            <label className="flex items-center gap-3 rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm font-bold text-gray-700">
+              <input
+                type="checkbox"
+                name="show_in_footer"
+                checked={Boolean(formData.show_in_footer)}
+                onChange={handleInputChange}
+                className="h-4 w-4"
+              />
+              Show this country in footer
+            </label>
           </div>
 
           <div className="mt-6 p-4 bg-white border rounded-xl shadow-sm">
@@ -203,6 +246,9 @@ const CountriesManager = () => {
             <tr className="bg-gray-50 text-gray-500 text-sm uppercase tracking-wider">
               <th className="p-4 font-semibold">Name</th>
               <th className="p-4 font-semibold">Description</th>
+              <th className="p-4 font-semibold">Home</th>
+              <th className="p-4 font-semibold">Countries Page</th>
+              <th className="p-4 font-semibold">Footer</th>
               <th className="p-4 font-semibold text-right">Actions</th>
             </tr>
           </thead>
@@ -211,6 +257,21 @@ const CountriesManager = () => {
               <tr key={country.slug} className="hover:bg-gray-50 transition-colors">
                 <td className="p-4 font-bold text-dark-900">{country.name}</td>
                 <td className="p-4 text-sm text-gray-600">{country.short_description}</td>
+                <td className="p-4 text-sm font-bold">
+                  <span className={country.show_on_home ? 'text-green-600' : 'text-gray-400'}>
+                    {country.show_on_home ? 'Yes' : 'No'}
+                  </span>
+                </td>
+                <td className="p-4 text-sm font-bold">
+                  <span className={country.show_in_listing ? 'text-green-600' : 'text-gray-400'}>
+                    {country.show_in_listing ? 'Yes' : 'No'}
+                  </span>
+                </td>
+                <td className="p-4 text-sm font-bold">
+                  <span className={country.show_in_footer ? 'text-green-600' : 'text-gray-400'}>
+                    {country.show_in_footer ? 'Yes' : 'No'}
+                  </span>
+                </td>
                 <td className="p-4 text-right">
                   <button onClick={() => editCountry(country)} className="text-primary-600 hover:text-primary-800 font-medium text-sm mr-4 transition-colors">Edit</button>
                   <button onClick={() => deleteCountry(country.slug)} className="text-red-500 hover:text-red-700 font-medium text-sm transition-colors">Delete</button>

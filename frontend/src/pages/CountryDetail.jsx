@@ -138,7 +138,7 @@ const CountryDetail = () => {
                   <FaUniversity className="text-primary-600" /> Top Universities
                 </h2>
                 <div className="space-y-6">
-                  {country.universities.map((uni, idx) => (
+                  {country.universities.filter(uni => uni.show_in_listing !== false).map((uni, idx) => (
                     <div key={idx} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow flex flex-col md:flex-row items-center gap-6">
                       <img src={resolveMediaUrl(uni.logo)} alt={uni.name} className="w-24 h-24 object-cover rounded-xl border border-gray-100" />
                       <div className="flex-grow text-center md:text-left">

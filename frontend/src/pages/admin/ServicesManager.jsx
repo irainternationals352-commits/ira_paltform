@@ -9,6 +9,7 @@ const ServicesManager = () => {
   const [showForm, setShowForm] = useState(false);
   const initialFormState = {
     title: '', slug: '', short_description: '', full_description: '', icon: 'FaCheck',
+    show_on_home: true, show_in_listing: true,
     features: [], process: []
   };
   const [formData, setFormData] = useState(initialFormState);
@@ -29,7 +30,8 @@ const ServicesManager = () => {
   };
 
   const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    setFormData({ ...formData, [e.target.name]: value });
   };
 
   const handleFileChange = (e) => {
@@ -168,6 +170,26 @@ const ServicesManager = () => {
                 <img src={resolveMediaUrl(formData.image)} alt="Current service" className="mt-3 h-24 w-40 rounded-lg object-cover border border-gray-200" />
               )}
             </div>
+            <label className="flex items-center gap-3 rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm font-bold text-gray-700">
+              <input
+                type="checkbox"
+                name="show_on_home"
+                checked={Boolean(formData.show_on_home)}
+                onChange={handleInputChange}
+                className="h-4 w-4"
+              />
+              Show on home page
+            </label>
+            <label className="flex items-center gap-3 rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm font-bold text-gray-700">
+              <input
+                type="checkbox"
+                name="show_in_listing"
+                checked={Boolean(formData.show_in_listing)}
+                onChange={handleInputChange}
+                className="h-4 w-4"
+              />
+              Show in services page
+            </label>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -186,6 +208,8 @@ const ServicesManager = () => {
             <tr className="bg-gray-50 text-gray-500 text-sm uppercase tracking-wider">
               <th className="p-4 font-semibold">Title</th>
               <th className="p-4 font-semibold">Description</th>
+              <th className="p-4 font-semibold">Home</th>
+              <th className="p-4 font-semibold">Services Page</th>
               <th className="p-4 font-semibold text-right">Actions</th>
             </tr>
           </thead>
@@ -194,6 +218,16 @@ const ServicesManager = () => {
               <tr key={service.slug} className="hover:bg-gray-50 transition-colors">
                 <td className="p-4 font-bold text-dark-900">{service.title}</td>
                 <td className="p-4 text-sm text-gray-600">{service.short_description}</td>
+                <td className="p-4 text-sm font-bold">
+                  <span className={service.show_on_home ? 'text-green-600' : 'text-gray-400'}>
+                    {service.show_on_home ? 'Yes' : 'No'}
+                  </span>
+                </td>
+                <td className="p-4 text-sm font-bold">
+                  <span className={service.show_in_listing ? 'text-green-600' : 'text-gray-400'}>
+                    {service.show_in_listing ? 'Yes' : 'No'}
+                  </span>
+                </td>
                 <td className="p-4 text-right whitespace-nowrap">
                   <button onClick={() => editService(service)} className="text-primary-600 hover:text-primary-800 font-medium text-sm mr-4 transition-colors">Edit</button>
                   <button onClick={() => deleteService(service.slug)} className="text-red-500 hover:text-red-700 font-medium text-sm transition-colors">Delete</button>

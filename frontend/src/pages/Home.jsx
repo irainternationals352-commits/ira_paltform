@@ -6,11 +6,20 @@ import { FaGraduationCap, FaGlobeAmericas, FaArrowRight } from 'react-icons/fa';
 import { company } from '../config/company';
 import { resolveMediaUrl } from '../utils/media';
 
+const heroSlides = [
+  'https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1600&q=72',
+  'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1600&q=72',
+  'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=72',
+  'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1600&q=72',
+  'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1600&q=72'
+];
+
 const Home = () => {
   const [data, setData] = useState(null);
   const [services, setServices] = useState([]);
   const [countries, setCountries] = useState([]);
   const [error, setError] = useState('');
+  const [heroSlideIndex, setHeroSlideIndex] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,8 +30,8 @@ const Home = () => {
           api.getCountries()
         ]);
         setData(homeRes.data);
-        setServices(servicesRes.data.slice(0, 4));
-        setCountries(countriesRes.data.slice(0, 4));
+        setServices(servicesRes.data.filter(item => item.show_on_home !== false).slice(0, 4));
+        setCountries(countriesRes.data.filter(item => item.show_on_home !== false).slice(0, 4));
       } catch (err) {
         console.error('Failed to load home page data', err);
         setError('Unable to load services and countries right now. Please try again later.');
@@ -31,15 +40,41 @@ const Home = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    heroSlides.forEach(src => {
+      const image = new Image();
+      image.src = resolveMediaUrl(src);
+    });
+
+    const intervalId = window.setInterval(() => {
+      setHeroSlideIndex(index => (index + 1) % heroSlides.length);
+    }, 4200);
+
+    return () => window.clearInterval(intervalId);
+  }, [heroSlides.length]);
+
   if (error) return <div className="h-screen flex items-center justify-center text-red-500 font-bold text-xl px-4 text-center">{error}</div>;
   if (!data) return <div className="h-screen flex items-center justify-center text-primary-600 font-bold text-xl">Loading Experience...</div>;
 
   return (
     <div className="bg-white">
-      {/* Redesigned Split Hero Section */}
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden bg-gradient-to-br from-primary-50 via-white to-primary-100">
+      {/* Hero Section */}
+      <section className="relative min-h-[760px] pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden bg-[#062544]">
+        {heroSlides.map((image, index) => (
+          <img
+            key={image}
+            src={resolveMediaUrl(image)}
+            alt=""
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
+              index === heroSlideIndex ? 'opacity-100' : 'opacity-0'
+            }`}
+            aria-hidden={index !== heroSlideIndex}
+          />
+        ))}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#061f3a] via-[#0b2f59]/82 to-[#0b2f59]/38"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#061f3a]/70 via-transparent to-white/5"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-12 items-center min-h-[560px]">
             
             {/* Left Content */}
             <motion.div 
@@ -49,67 +84,72 @@ const Home = () => {
               className="text-left"
             >
               {company.heroBadge && (
-                <div className="inline-block bg-primary-100 text-primary-800 font-bold px-4 py-1.5 rounded-full text-sm mb-6 border border-primary-200 shadow-sm">
+                <div className="inline-block bg-white/12 text-blue-50 font-bold px-4 py-1.5 rounded-full text-sm mb-6 border border-white/20 shadow-sm backdrop-blur">
                   {company.heroBadge}
                 </div>
               )}
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-dark-900 mb-6 leading-[1.1] tracking-tight">
-                Shape Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-primary-400">Global Future</span> Today
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-[1.1] tracking-tight">
+                Shape Your <span className="text-[#74bdf2]">Global Future</span> Today
               </h1>
-              <p className="text-xl text-gray-600 mb-10 leading-relaxed max-w-lg">
+              <p className="text-xl text-blue-50/88 mb-10 leading-relaxed max-w-lg">
                 {data.hero_subtitle}
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link to={data.button_link} className="bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-full text-lg font-bold transition-all shadow-lg shadow-primary-600/30 hover:shadow-primary-600/50 flex items-center justify-center gap-2 transform hover:-translate-y-1">
+                <Link to={data.button_link} className="bg-[#0072bc] hover:bg-[#005f9f] text-white px-8 py-4 rounded-full text-lg font-bold transition-all shadow-lg shadow-black/25 flex items-center justify-center gap-2 transform hover:-translate-y-1">
                   {data.button_text} <FaArrowRight />
                 </Link>
-                <Link to="/services" className="bg-white hover:bg-gray-50 text-dark-800 border-2 border-gray-200 px-8 py-4 rounded-full text-lg font-bold transition-all flex items-center justify-center transform hover:-translate-y-1">
+                <Link to="/services" className="bg-white/95 hover:bg-white text-[#061f3a] border border-white/30 px-8 py-4 rounded-full text-lg font-bold transition-all flex items-center justify-center transform hover:-translate-y-1">
                   Explore Services
                 </Link>
               </div>
 
               {/* Trust Indicators */}
-              <div className="mt-12 flex items-center gap-8 border-t border-gray-200 pt-8">
+              <div className="mt-12 flex flex-wrap items-center gap-8 border-t border-white/18 pt-8">
                 {company.statVisaSuccess && <div>
-                  <h4 className="text-3xl font-black text-dark-900">{company.statVisaSuccess}</h4>
-                  <p className="text-gray-500 font-medium">Visa Success</p>
+                  <h4 className="text-3xl font-black text-white">{company.statVisaSuccess}</h4>
+                  <p className="text-blue-100/80 font-medium">Visa Success</p>
                 </div>}
                 {company.statUniversities && <div>
-                  <h4 className="text-3xl font-black text-dark-900">{company.statUniversities}</h4>
-                  <p className="text-gray-500 font-medium">Universities</p>
+                  <h4 className="text-3xl font-black text-white">{company.statUniversities}</h4>
+                  <p className="text-blue-100/80 font-medium">Universities</p>
                 </div>}
                 {company.statStudents && <div>
-                  <h4 className="text-3xl font-black text-dark-900">{company.statStudents}</h4>
-                  <p className="text-gray-500 font-medium">Students Placed</p>
+                  <h4 className="text-3xl font-black text-white">{company.statStudents}</h4>
+                  <p className="text-blue-100/80 font-medium">Students Placed</p>
                 </div>}
               </div>
             </motion.div>
 
-            {/* Right Image/Graphic */}
+            {/* Right Visual Story */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-              className="relative hidden lg:block"
+              className="relative hidden lg:block min-h-[460px]"
             >
-              {/* Decorative blobs */}
-              <div className="absolute top-0 -left-4 w-72 h-72 bg-primary-400 rounded-full mix-blend-multiply filter blur-2xl opacity-30 animate-blob"></div>
-              <div className="absolute top-0 -right-4 w-72 h-72 bg-secondary-400 rounded-full mix-blend-multiply filter blur-2xl opacity-30 animate-blob animation-delay-2000"></div>
-              <div className="absolute -bottom-8 left-20 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-2xl opacity-30 animate-blob animation-delay-4000"></div>
-              
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white transform rotate-2 hover:rotate-0 transition-transform duration-500">
-                <img src={data.hero_image} alt="Students studying abroad" className="w-full h-auto object-cover" />
+              <div className="absolute right-0 top-4 w-[440px] overflow-hidden rounded-3xl border border-white/20 bg-white/10 p-3 shadow-2xl backdrop-blur-md">
+                <div
+                  className="h-72 w-full rounded-2xl bg-[#0b2f59] bg-cover bg-center transition-all duration-700"
+                  style={{ backgroundImage: `url("${resolveMediaUrl(heroSlides[(heroSlideIndex + 1) % heroSlides.length])}")` }}
+                  aria-hidden="true"
+                />
+              </div>
+              <div className="absolute left-10 bottom-24 w-64 overflow-hidden rounded-3xl border border-white/25 bg-white/10 p-3 shadow-2xl backdrop-blur-md">
+                <div
+                  className="h-44 w-full rounded-2xl bg-[#0b2f59] bg-cover bg-center transition-all duration-700"
+                  style={{ backgroundImage: `url("${resolveMediaUrl(heroSlides[(heroSlideIndex + 3) % heroSlides.length])}")` }}
+                  aria-hidden="true"
+                />
               </div>
               
-              {/* Floating Badge */}
-              <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-4 animate-bounce" style={{ animationDuration: '3s' }}>
-                <div className="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-2xl">
+              <div className="absolute bottom-8 right-14 bg-white p-4 rounded-2xl shadow-xl border border-white/70 flex items-center gap-4">
+                <div className="w-12 h-12 bg-[#e8f4ff] text-[#0072bc] rounded-full flex items-center justify-center text-2xl">
                   <FaGlobeAmericas />
                 </div>
                 <div>
                   <p className="text-sm text-gray-500 font-semibold">Global Network</p>
-                  <p className="font-bold text-dark-900">{company.statCountries}</p>
+                  <p className="font-bold text-[#061f3a]">{company.statCountries}</p>
                 </div>
               </div>
             </motion.div>
@@ -152,21 +192,22 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Top Destinations - Better contrast and gradients */}
-      <section className="py-24 bg-dark-900 text-white">
+      {/* Top Destinations */}
+      <section className="py-24 bg-[#0b2f59] text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(0,101,177,0.36),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.08),transparent_38%)]"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16">
+          <div className="relative z-10 flex flex-col md:flex-row justify-between items-end mb-16">
             <div className="max-w-2xl">
               <h2 className="text-4xl font-extrabold mb-4">Top Destinations</h2>
-              <div className="w-24 h-1.5 bg-primary-500 rounded-full mb-6"></div>
-              <p className="text-xl text-gray-400">Discover world-class education systems and find the perfect country for your career goals.</p>
+              <div className="w-24 h-1.5 bg-[#0072bc] rounded-full mb-6"></div>
+              <p className="text-xl text-blue-100/85">Discover world-class education systems and find the perfect country for your career goals.</p>
             </div>
-            <Link to="/countries" className="hidden md:flex items-center gap-2 text-primary-400 font-bold hover:text-white transition-colors">
+            <Link to="/countries" className="hidden md:flex items-center gap-2 text-blue-100 font-bold hover:text-white transition-colors">
               Explore All Countries <FaArrowRight />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {countries.map((country, index) => (
               <Link to={`/countries/${country.slug}`} key={country.slug || index}>
                 <motion.div 
@@ -174,16 +215,16 @@ const Home = () => {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="relative rounded-3xl overflow-hidden h-96 group cursor-pointer shadow-2xl"
+                  className="relative rounded-2xl overflow-hidden h-96 group cursor-pointer shadow-2xl ring-1 ring-white/12 bg-[#092744]"
                 >
                   <img src={resolveMediaUrl(country.banner_image)} alt={country.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                  {/* Better gradient for text visibility */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/60 to-transparent opacity-90 group-hover:opacity-100 transition-opacity"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#061f3a] via-[#0b2f59]/72 to-[#0072bc]/10 opacity-95 group-hover:opacity-100 transition-opacity"></div>
+                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#0072bc] via-white/70 to-[#0b2f59] opacity-80"></div>
                   
                   <div className="absolute bottom-0 left-0 w-full p-8 transform group-hover:-translate-y-2 transition-transform duration-300">
                     <h3 className="text-3xl font-bold text-white mb-2">{country.name}</h3>
-                    <p className="text-gray-300 text-sm mb-4 line-clamp-2">{country.short_description}</p>
-                    <span className="text-primary-400 font-bold flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                    <p className="text-blue-50/85 text-sm mb-4 line-clamp-2">{country.short_description}</p>
+                    <span className="text-white font-bold inline-flex items-center gap-2 rounded-full bg-[#0072bc]/85 px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
                       View Details <FaArrowRight />
                     </span>
                   </div>
@@ -192,8 +233,8 @@ const Home = () => {
             ))}
           </div>
           
-          <div className="mt-10 md:hidden text-center">
-            <Link to="/countries" className="inline-flex items-center gap-2 text-primary-400 font-bold hover:text-white transition-colors">
+          <div className="relative z-10 mt-10 md:hidden text-center">
+            <Link to="/countries" className="inline-flex items-center gap-2 text-blue-100 font-bold hover:text-white transition-colors">
               Explore All Countries <FaArrowRight />
             </Link>
           </div>
