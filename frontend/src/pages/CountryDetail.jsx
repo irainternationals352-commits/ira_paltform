@@ -39,10 +39,10 @@ const CountryDetail = () => {
         </div>
         
         <div className="max-w-7xl mx-auto relative z-10">
-          <Link to="/countries" className="text-primary-400 hover:text-white flex items-center gap-2 mb-6 font-medium transition-colors">
+          <Link to="/countries" className="text-blue-200 hover:text-white flex items-center gap-2 mb-6 font-medium transition-colors">
             ← Back to Destinations
           </Link>
-          <div className="inline-block bg-primary-600/20 text-primary-300 font-bold px-4 py-1.5 rounded-full text-sm mb-4 border border-primary-500/30 backdrop-blur-sm">
+          <div className="inline-block bg-white/10 text-white font-bold px-4 py-1.5 rounded-full text-sm mb-4 border border-white/20 backdrop-blur-sm">
             Study in {country.name}
           </div>
           <motion.h1 

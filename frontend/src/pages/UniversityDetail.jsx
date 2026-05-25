@@ -43,7 +43,7 @@ const UniversityDetail = () => {
           </div>
           
           <div className="text-center md:text-left flex-grow">
-            <Link to="/universities" className="text-primary-400 hover:text-white flex items-center justify-center md:justify-start gap-2 mb-4 font-medium transition-colors">
+            <Link to="/universities" className="text-blue-200 hover:text-white flex items-center justify-center md:justify-start gap-2 mb-4 font-medium transition-colors">
               ← Back to Universities
             </Link>
             <motion.h1 
