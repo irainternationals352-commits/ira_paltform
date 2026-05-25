@@ -129,18 +129,18 @@ const Home = () => {
               </div>
 
               {/* Trust Indicators */}
-              <div className="mt-12 flex flex-wrap items-center gap-8 border-t border-white/18 pt-8">
+              <div className="mt-12 grid grid-cols-3 gap-2 sm:gap-6 md:gap-8 border-t border-white/18 pt-8 text-left">
                 {company.statVisaSuccess && <div>
-                  <h4 className="text-3xl font-black text-white">{company.statVisaSuccess}</h4>
-                  <p className="text-blue-100/80 font-medium">Visa Success</p>
+                  <h4 className="text-2xl sm:text-3xl font-black text-white">{company.statVisaSuccess}</h4>
+                  <p className="text-[11px] sm:text-sm text-blue-100/80 font-semibold leading-tight">Visa Success</p>
                 </div>}
                 {company.statUniversities && <div>
-                  <h4 className="text-3xl font-black text-white">{company.statUniversities}</h4>
-                  <p className="text-blue-100/80 font-medium">Universities</p>
+                  <h4 className="text-2xl sm:text-3xl font-black text-white">{company.statUniversities}</h4>
+                  <p className="text-[11px] sm:text-sm text-blue-100/80 font-semibold leading-tight">Universities</p>
                 </div>}
                 {company.statStudents && <div>
-                  <h4 className="text-3xl font-black text-white">{company.statStudents}</h4>
-                  <p className="text-blue-100/80 font-medium">Students Placed</p>
+                  <h4 className="text-2xl sm:text-3xl font-black text-white">{company.statStudents}</h4>
+                  <p className="text-[11px] sm:text-sm text-blue-100/80 font-semibold leading-tight">Students Placed</p>
                 </div>}
               </div>
             </motion.div>
@@ -189,10 +189,8 @@ const Home = () => {
             <h2 className="text-4xl font-extrabold text-dark-900 mb-4">Our Premium Services</h2>
             <div className="w-24 h-1.5 bg-primary-500 mx-auto rounded-full mb-8"></div>
             
-            <p className="text-lg font-bold text-primary-600 mb-2 uppercase tracking-wider">
-              We are not just another consultancy.
-            </p>
-            <p className="text-2xl font-extrabold text-dark-900 mb-6 leading-snug">
+            <p className="text-xl md:text-2xl font-extrabold text-dark-900 mb-6 leading-relaxed">
+              <span className="text-primary-600 block md:inline md:mr-2">We are not just another consultancy.</span>
               We are a modern global movement for people who think bigger.
             </p>
             <p className="text-lg text-gray-600 mb-10 leading-relaxed">
