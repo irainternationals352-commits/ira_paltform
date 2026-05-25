@@ -69,7 +69,7 @@ const About = () => {
           >
             <div className="absolute -inset-4 bg-gradient-to-tr from-primary-500 to-secondary-500 rounded-3xl opacity-20 blur-xl"></div>
             <img 
-              src={resolveMediaUrl(data.image)} 
+              src={data.image ? resolveMediaUrl(data.image) : "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80"} 
               alt="About IRA International" 
               className="relative rounded-3xl shadow-2xl border border-gray-100 object-cover w-full h-[400px]" 
             />
@@ -108,8 +108,8 @@ const About = () => {
               </div>
               
               <div className="pt-6 border-t border-gray-100">
-                <span className="inline-flex bg-gradient-to-r from-primary-50 to-secondary-50 border border-primary-100 text-primary-800 font-extrabold text-sm tracking-wide uppercase px-6 py-3 rounded-2xl shadow-sm">
-                  🌐 Global experience • 🤝 International network • 🚀 Future-focused vision
+                <span className="inline-block bg-gradient-to-r from-primary-50 to-secondary-50 border border-primary-100 text-primary-800 font-extrabold text-[9px] xs:text-[10px] sm:text-xs tracking-wider uppercase px-4 py-2.5 rounded-full shadow-sm whitespace-nowrap">
+                  Global Experience • International Network • Future-Focused Vision
                 </span>
               </div>
             </div>

@@ -161,8 +161,8 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-2 uppercase tracking-wider">Interested Course/Program</label>
-                  <input type="text" name="interested_course" value={formData.interested_course} onChange={handleChange} className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl text-dark-900 placeholder-gray-400 focus:bg-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 shadow-sm hover:border-gray-300 outline-none" placeholder="e.g. Master's in Computer Science" />
+                  <label className="block text-xs font-bold text-gray-700 mb-2 uppercase tracking-wider">Interested Service</label>
+                  <input type="text" name="interested_course" value={formData.interested_course} onChange={handleChange} className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl text-dark-900 placeholder-gray-400 focus:bg-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 shadow-sm hover:border-gray-300 outline-none" placeholder="e.g. Study Abroad, Global Careers, Visa Assistance" />
                 </div>
 
                 <div>
