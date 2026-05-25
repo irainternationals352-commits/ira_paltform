@@ -40,8 +40,8 @@ const Navbar = () => {
               <img 
                 src="/ira_logo.jpeg" 
                 alt={`${company.name} logo`} 
-                className="h-12 w-auto max-w-[190px] object-contain shrink-0" 
-                style={{ height: '48px', width: 'auto', display: 'block', objectFit: 'contain' }} 
+                className="h-16 w-auto max-w-[240px] object-contain shrink-0" 
+                style={{ height: '60px', width: 'auto', display: 'block', objectFit: 'contain' }} 
               />
               <span className="sr-only">
                 {company.name}
