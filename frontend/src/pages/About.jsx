@@ -81,33 +81,36 @@ const About = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-white rounded-3xl p-8 md:p-14 shadow-xl border border-gray-100 mb-28 relative overflow-hidden"
+          className="bg-gradient-to-br from-white via-light-50 to-primary-50/20 rounded-3xl p-8 md:p-14 shadow-2xl border border-primary-100/50 mb-28 relative overflow-hidden"
         >
-          <div className="absolute right-0 top-0 w-64 h-64 bg-primary-50 rounded-full opacity-40 blur-3xl -z-10"></div>
+          {/* Decorative premium shapes */}
+          <div className="absolute -right-16 -top-16 w-48 h-48 bg-primary-500/10 rounded-full blur-2xl"></div>
+          <div className="absolute left-10 bottom-0 w-64 h-64 bg-secondary-400/5 rounded-full blur-3xl -z-10"></div>
           
-          <div className="flex flex-col lg:flex-row gap-12 items-start">
-            <div className="w-16 h-16 rounded-2xl bg-primary-100 text-primary-600 flex items-center justify-center text-3xl shrink-0 shadow-sm">
+          <div className="flex flex-col lg:flex-row gap-12 items-start relative z-10">
+            <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-primary-600 to-primary-800 text-white flex items-center justify-center text-4xl shrink-0 shadow-lg shadow-primary-600/20 ring-4 ring-primary-50">
               <FaUserTie />
             </div>
             
             <div className="space-y-6">
-              <h3 className="text-3xl font-extrabold text-dark-900">
-                Founder’s Global Vision & International Experience
+              <h3 className="text-3xl md:text-3.5xl font-black text-dark-900 leading-tight">
+                Founder’s Global Vision <br className="hidden sm:inline" />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-secondary-500">& International Experience</span>
               </h3>
               
-              <div className="space-y-4 text-lg text-gray-600 leading-relaxed">
+              <div className="space-y-5 text-lg text-gray-600 leading-relaxed font-medium">
                 <p>
-                  Founded by a globally experienced entrepreneur with 10+ years of industry expertise, international living experience in Ukraine, Finland, and Canada, and travel exposure across 45+ countries, IRA International was built with a truly global mindset.
+                  Founded by a globally experienced entrepreneur with <strong className="text-dark-900">10+ years of industry expertise</strong>, international living experience in <span className="text-primary-600 font-semibold">Ukraine, Finland, and Canada</span>, and travel exposure across <strong className="text-dark-900">45+ countries</strong>, IRA International was built with a truly global mindset.
                 </p>
                 <p>
                   Through strong international connections with educational leaders, universities, entrepreneurs, hospitality networks, and business professionals worldwide, IRA International delivers strategic global opportunities designed for the modern generation.
                 </p>
               </div>
               
-              <div className="pt-4 border-t border-gray-100">
-                <p className="text-xl font-extrabold text-primary-600 tracking-wide uppercase">
-                  Global experience. International network. Future-focused vision.
-                </p>
+              <div className="pt-6 border-t border-gray-100">
+                <span className="inline-flex bg-gradient-to-r from-primary-50 to-secondary-50 border border-primary-100 text-primary-800 font-extrabold text-sm tracking-wide uppercase px-6 py-3 rounded-2xl shadow-sm">
+                  🌐 Global experience • 🤝 International network • 🚀 Future-focused vision
+                </span>
               </div>
             </div>
           </div>
@@ -119,16 +122,21 @@ const About = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="bg-gradient-to-br from-primary-900 to-primary-700 rounded-3xl p-8 md:p-12 text-white shadow-2xl relative overflow-hidden h-full flex flex-col justify-center"
+            className="bg-gradient-to-br from-[#031122] via-[#09223c] to-[#05162b] rounded-3xl p-8 md:p-12 text-white shadow-2xl relative overflow-hidden h-full flex flex-col justify-center border border-primary-950/80"
           >
-            <div className="absolute -left-10 -bottom-10 w-40 h-40 bg-white/5 rounded-full"></div>
-            <div className="w-12 h-12 rounded-xl bg-white/10 text-white flex items-center justify-center text-2xl mb-6 shadow-sm">
+            {/* Glowing blur shape */}
+            <div className="absolute right-0 bottom-0 w-32 h-32 bg-secondary-500/10 rounded-full blur-2xl"></div>
+            
+            <div className="w-14 h-14 rounded-2xl bg-primary-900/50 border border-primary-500/30 text-secondary-400 flex items-center justify-center text-3xl mb-6 shadow-inner relative z-10">
               <FaGlobe />
             </div>
-            <h4 className="text-2xl font-bold mb-4 uppercase tracking-wider">Ira Philosophy</h4>
-            <p className="text-xl font-extrabold text-blue-100 leading-relaxed italic">
-              "We believe true success is not only wealth, but freedom, growth, purpose, and the power to live globally without limits."
-            </p>
+            <h4 className="text-xs font-black uppercase tracking-[0.3em] text-secondary-400 mb-4 relative z-10">Ira Philosophy</h4>
+            <div className="relative z-10">
+              <span className="text-5xl font-serif text-secondary-500 absolute -top-6 -left-4 opacity-40">“</span>
+              <p className="text-xl md:text-2xl font-black text-white leading-relaxed italic pl-3">
+                We believe true success is not only wealth, but <span className="text-secondary-400">freedom, growth, purpose</span>, and the power to live globally without limits.
+              </p>
+            </div>
           </motion.div>
 
           <motion.div
