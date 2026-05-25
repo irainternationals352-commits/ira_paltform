@@ -38,10 +38,10 @@ const Navbar = () => {
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="flex items-center gap-3">
               <img 
-                src="/ira_logo.jpeg" 
+                src="/ira_logo_clean.png" 
                 alt={`${company.name} logo`} 
-                className="h-20 w-auto max-w-[280px] object-contain shrink-0 mix-blend-multiply" 
-                style={{ height: '76px', width: 'auto', display: 'block', objectFit: 'contain', mixBlendMode: 'multiply' }} 
+                className="h-16 w-auto max-w-[200px] object-contain shrink-0" 
+                style={{ height: '60px', width: 'auto', display: 'block', objectFit: 'contain' }} 
               />
               <span className="sr-only">
                 {company.name}
