@@ -50,8 +50,10 @@ const About = () => {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <span className="text-primary-600 font-extrabold text-lg uppercase tracking-widest block">Who We Are</span>
-            <h2 className="text-4xl md:text-5xl font-black text-dark-900 leading-tight">
+            <span className="text-primary-600 font-bold text-xs uppercase tracking-[0.25em] inline-block bg-primary-50 px-3.5 py-1.5 rounded-full border border-primary-100/80 shadow-sm mb-2">
+              Who We Are
+            </span>
+            <h2 className="text-3xl md:text-4.5xl font-black text-dark-900 leading-tight">
               More Than A Consultancy.<br />
               <span className="text-primary-500">A Global Lifestyle Brand.</span>
             </h2>
