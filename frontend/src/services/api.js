@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { API_BASE_URL } from '../config/api';
 
+const publicClient = axios.create();
+
 // Since the Django backend is not ready, we will use mock data for now.
 // Once backend is ready, switch USE_MOCK to false and set API_BASE_URL.
 const USE_MOCK = false;
@@ -8,16 +10,16 @@ const USE_MOCK = false;
 const mockData = {
   home: {
     hero_title: "Shape Your Global Future Today",
-    hero_subtitle: "Expert guidance for your study abroad journey. From university selection to visa assistance, we are with you every step of the way.",
+    hero_subtitle: "Ira International helps ambitious students, creators, entrepreneurs, and professionals unlock global opportunities through world-class education, international mobility, and borderless career pathways.",
     hero_image: "https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&q=80",
     button_text: "Book Free Consultation",
     button_link: "/contact"
   },
   about: {
     title: "Who We Are",
-    description: "We are a premier educational consultancy dedicated to helping students achieve their dreams of studying abroad. With years of experience and a global network of partner universities.",
-    mission: "To provide transparent, ethical, and expert guidance to students aspiring to study internationally.",
-    vision: "To be the most trusted global education consultancy bridging the gap between students and world-class universities.",
+    description: "IRA International is a premium international Migration consulting brand built for ambitious individuals who aspire to study globally, move internationally, build influential careers, and create a lifestyle without borders.",
+    mission: "More Than A Consultancy. A Global Lifestyle Brand.",
+    vision: "We believe true success is not only wealth, but freedom, growth, purpose, and the power to live globally without limits.",
     image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80",
   },
   services: [
@@ -390,7 +392,7 @@ export const api = {
   },
   getServices: async () => {
     if (USE_MOCK) { await delay(500); return { data: mockData.services }; }
-    return axios.get(`${API_BASE_URL}/services/`);
+    return publicClient.get(`${API_BASE_URL}/services/`);
   },
   getServiceBySlug: async (slug) => {
     if (USE_MOCK) { 
@@ -399,11 +401,11 @@ export const api = {
       if (!service) throw new Error("Service not found");
       return { data: service }; 
     }
-    return axios.get(`${API_BASE_URL}/services/${slug}/`);
+    return publicClient.get(`${API_BASE_URL}/services/${slug}/`);
   },
   getCountries: async () => {
     if (USE_MOCK) { await delay(500); return { data: mockData.countries }; }
-    return axios.get(`${API_BASE_URL}/countries/`);
+    return publicClient.get(`${API_BASE_URL}/countries/`);
   },
   getCountryBySlug: async (slug) => {
     if (USE_MOCK) { 
@@ -412,11 +414,11 @@ export const api = {
       if (!country) throw new Error("Country not found");
       return { data: country }; 
     }
-    return axios.get(`${API_BASE_URL}/countries/${slug}/`);
+    return publicClient.get(`${API_BASE_URL}/countries/${slug}/`);
   },
   getUniversities: async () => {
     if (USE_MOCK) { await delay(500); return { data: mockData.universities }; }
-    return axios.get(`${API_BASE_URL}/universities/`);
+    return publicClient.get(`${API_BASE_URL}/universities/`);
   },
   getUniversityBySlug: async (slug) => {
     if (USE_MOCK) { 
@@ -425,7 +427,7 @@ export const api = {
       if (!university) throw new Error("University not found");
       return { data: university }; 
     }
-    return axios.get(`${API_BASE_URL}/universities/${slug}/`);
+    return publicClient.get(`${API_BASE_URL}/universities/${slug}/`);
   },
   getWhyChooseUs: async () => {
     await delay(500); return { data: mockData.whyChooseUs };
@@ -439,6 +441,6 @@ export const api = {
       console.log("Mock Enquiry Submitted:", formData);
       return { data: { success: true, message: "Enquiry submitted successfully." } }; 
     }
-    return axios.post(`${API_BASE_URL}/enquiries/`, formData);
+    return publicClient.post(`${API_BASE_URL}/enquiries/`, formData);
   }
 };

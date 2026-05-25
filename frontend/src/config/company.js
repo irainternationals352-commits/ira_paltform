@@ -17,7 +17,7 @@ export const company = {
   statCountries: import.meta.env.VITE_COMPANY_STAT_COUNTRIES || '',
   contactIntro: import.meta.env.VITE_COMPANY_CONTACT_INTRO || '',
   homeCtaText: import.meta.env.VITE_COMPANY_HOME_CTA_TEXT || '',
-  footerDescription: import.meta.env.VITE_COMPANY_FOOTER_DESCRIPTION || '',
+  footerDescription: import.meta.env.VITE_COMPANY_FOOTER_DESCRIPTION || 'Whether you want to study abroad, build an international career, move globally, or create something bigger Ira International helps you turn ambition into reality with premium global guidance designed for the next generation.',
 };
 
 export const hasCompanyContact = Boolean(company.address || company.phone || company.email);

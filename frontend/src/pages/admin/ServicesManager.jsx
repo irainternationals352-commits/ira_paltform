@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { API_BASE_URL } from '../../config/api';
 import { resolveMediaUrl } from '../../utils/media';
+import * as Icons from 'react-icons/fa';
 
 const ServicesManager = () => {
   const [services, setServices] = useState([]);
@@ -162,6 +163,35 @@ const ServicesManager = () => {
             <div>
               <label className="block text-sm font-bold text-gray-700 mb-1">Full Description</label>
               <textarea name="full_description" value={formData.full_description} onChange={handleInputChange} rows="3" className="w-full px-3 py-2 rounded-lg border border-gray-300"></textarea>
+            </div>
+            <div>
+              <label className="block text-sm font-bold text-gray-700 mb-1">Service Icon *</label>
+              <div className="flex gap-4 items-center">
+                <select
+                  name="icon"
+                  value={formData.icon || 'FaGraduationCap'}
+                  onChange={handleInputChange}
+                  className="flex-1 px-3 py-2 rounded-lg border border-gray-300 bg-white"
+                >
+                  <option value="FaGraduationCap">🎓 Study Abroad / Education (FaGraduationCap)</option>
+                  <option value="FaPassport">🛂 Visa Assistance (FaPassport)</option>
+                  <option value="FaBookOpen">📖 Test Preparation (FaBookOpen)</option>
+                  <option value="FaBriefcase">💼 Career Counselling (FaBriefcase)</option>
+                  <option value="FaPlane">✈️ Pre-Departure (FaPlane)</option>
+                  <option value="FaHome">🏠 Post-Arrival Accommodation (FaHome)</option>
+                  <option value="FaFileAlt">📄 Application Documentation (FaFileAlt)</option>
+                  <option value="FaUserTie">👔 Expert Consultation (FaUserTie)</option>
+                  <option value="FaGlobeAmericas">🌍 Immigration & Residency (FaGlobeAmericas)</option>
+                  <option value="FaHandshake">🤝 Relationship / Guidance (FaHandshake)</option>
+                  <option value="FaCheck">✅ General / Fallback (FaCheck)</option>
+                </select>
+                <div className="w-12 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center text-2xl text-primary-600 shadow-sm shrink-0">
+                  {(() => {
+                    const IconComp = Icons[formData.icon || 'FaGraduationCap'];
+                    return IconComp ? <IconComp /> : null;
+                  })()}
+                </div>
+              </div>
             </div>
             <div>
               <label className="block text-sm font-bold text-gray-700 mb-1">Service Image</label>

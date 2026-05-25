@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { api } from '../services/api';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { FaGraduationCap, FaGlobeAmericas, FaArrowRight } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
+import * as Icons from 'react-icons/fa';
+import { FaGlobeAmericas, FaArrowRight } from 'react-icons/fa';
 import { company } from '../config/company';
 import { resolveMediaUrl } from '../utils/media';
 
@@ -20,6 +21,7 @@ const Home = () => {
   const [countries, setCountries] = useState([]);
   const [error, setError] = useState('');
   const [heroSlideIndex, setHeroSlideIndex] = useState(0);
+  const [taglineIndex, setTaglineIndex] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,7 +52,14 @@ const Home = () => {
       setHeroSlideIndex(index => (index + 1) % heroSlides.length);
     }, 4200);
 
-    return () => window.clearInterval(intervalId);
+    const taglineInterval = window.setInterval(() => {
+      setTaglineIndex(index => (index + 1) % 3);
+    }, 4200);
+
+    return () => {
+      window.clearInterval(intervalId);
+      window.clearInterval(taglineInterval);
+    };
   }, [heroSlides.length]);
 
   if (error) return <div className="h-screen flex items-center justify-center text-red-500 font-bold text-xl px-4 text-center">{error}</div>;
@@ -88,11 +97,26 @@ const Home = () => {
                   {company.heroBadge}
                 </div>
               )}
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-[1.1] tracking-tight">
-                Shape Your <span className="text-[#74bdf2]">Global Future</span> Today
+              <h1 className="text-5xl md:text-6xl lg:text-7.5xl font-extrabold text-white mb-6 leading-[1.1] tracking-tight min-h-[160px] md:min-h-[120px] flex items-center">
+                <span className="w-full">
+                  <AnimatePresence mode="wait">
+                    <motion.span
+                      key={taglineIndex}
+                      initial={{ opacity: 0, y: 15 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -15 }}
+                      transition={{ duration: 0.4 }}
+                      className="block"
+                    >
+                      {taglineIndex === 0 && <>Build The <span className="text-[#74bdf2]">Future</span> Others Wish For</>}
+                      {taglineIndex === 1 && <>Build The <span className="text-[#74bdf2]">Life</span> Most People Only Imagine</>}
+                      {taglineIndex === 2 && <>Live The <span className="text-[#74bdf2]">Global Life</span> You Deserve</>}
+                    </motion.span>
+                  </AnimatePresence>
+                </span>
               </h1>
-              <p className="text-xl text-blue-50/88 mb-10 leading-relaxed max-w-lg">
-                {data.hero_subtitle}
+              <p className="text-xl text-blue-50/88 mb-10 leading-relaxed max-w-2xl">
+                {data.hero_subtitle || "Ira International helps ambitious students, creators, entrepreneurs, and professionals unlock global opportunities through world-class education, international mobility, and borderless career pathways."}
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
@@ -161,10 +185,28 @@ const Home = () => {
       {/* Services Section */}
       <section className="py-24 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 max-w-3xl mx-auto">
             <h2 className="text-4xl font-extrabold text-dark-900 mb-4">Our Premium Services</h2>
-            <div className="w-24 h-1.5 bg-primary-500 mx-auto rounded-full mb-6"></div>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">End-to-end support for your international education journey.</p>
+            <div className="w-24 h-1.5 bg-primary-500 mx-auto rounded-full mb-8"></div>
+            
+            <p className="text-lg font-bold text-primary-600 mb-2 uppercase tracking-wider">
+              We are not just another consultancy.
+            </p>
+            <p className="text-2xl font-extrabold text-dark-900 mb-6 leading-snug">
+              We are a modern global movement for people who think bigger.
+            </p>
+            <p className="text-lg text-gray-600 mb-10 leading-relaxed">
+              From studying in Europe to building businesses in Singapore, from global careers to international migration Ira International creates opportunities designed for the next generation.
+            </p>
+            
+            <div className="flex flex-wrap justify-center gap-4 mt-6">
+              <span className="inline-block bg-primary-50 border border-primary-100 text-primary-700 font-bold px-5 py-2.5 rounded-full text-sm shadow-sm">
+                Your Future Deserves A Bigger Map
+              </span>
+              <span className="inline-block bg-secondary-50 border border-secondary-200 text-secondary-700 font-bold px-5 py-2.5 rounded-full text-sm shadow-sm">
+                Your Global Future Starts With One Conversation
+              </span>
+            </div>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -178,7 +220,10 @@ const Home = () => {
                   className="bg-light-50 p-8 rounded-3xl border border-gray-100 hover:border-primary-200 shadow-sm hover:shadow-xl transition-all group h-full cursor-pointer"
                 >
                   <div className="w-16 h-16 bg-white shadow-sm border border-gray-100 text-primary-600 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:bg-primary-600 group-hover:text-white transition-colors duration-300">
-                    <FaGraduationCap /> {/* Default Icon */}
+                    {(() => {
+                      const IconComp = Icons[service.icon] || Icons.FaGraduationCap;
+                      return <IconComp />;
+                    })()}
                   </div>
                   <h3 className="text-xl font-bold text-dark-900 mb-3">{service.title}</h3>
                   <p className="text-gray-600 mb-6 leading-relaxed">{service.short_description}</p>
@@ -255,16 +300,16 @@ const Home = () => {
             viewport={{ once: true }}
             className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight"
           >
-            Ready to start your <span className="text-secondary-400">global</span> journey?
+            The World’s Best Opportunities, One Click Away.
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-xl text-primary-100 mb-12"
+            className="text-xl text-primary-100 mb-12 font-medium"
           >
-            {company.homeCtaText}
+            Connect with us today and take the first step toward a future without borders
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
