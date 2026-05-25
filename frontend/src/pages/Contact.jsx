@@ -38,12 +38,21 @@ const Contact = () => {
 
   return (
     <div className="bg-light-50 min-h-screen pb-20">
-      <div className="bg-gradient-to-r from-primary-900 via-primary-800 to-primary-700 text-white pt-40 pb-28 px-4 text-center relative overflow-hidden mb-16">
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg width=\\'60\\' height=\\'60\\' viewBox=\\'0 0 60 60\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cg fill=\\'none\\' fill-rule=\\'evenodd\\'%3E%3Cg fill=\\'%23ffffff\\' fill-opacity=\\'1\\'%3E%3Cpath d=\\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')"}}></div>
-        <h1 className="text-5xl lg:text-6xl font-extrabold mb-4 relative z-10 uppercase tracking-wide">CONTACT US</h1>
+      {/* Header Banner */}
+      <div className="relative pt-40 pb-28 px-4 text-center overflow-hidden bg-[#062544] mb-16">
+        {/* Background Image */}
+        <img 
+          src="/contact_bg.jpeg" 
+          alt="" 
+          className="absolute inset-0 w-full h-full object-cover" 
+        />
+        {/* Dark Premium Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#031122]/90 via-[#09223c]/85 to-[#05162b]/90"></div>
+        
+        <h1 className="text-5xl lg:text-6xl font-extrabold mb-4 relative z-10 text-white uppercase tracking-wide">CONTACT US</h1>
         <h2 className="text-2xl lg:text-3xl font-extrabold mb-6 text-secondary-400 relative z-10">Your Future Was Never Meant To Stay Local.</h2>
         <div className="w-24 h-1.5 bg-secondary-500 mx-auto rounded-full mb-8 relative z-10"></div>
-        <div className="text-lg text-primary-100 max-w-3xl mx-auto relative z-10 space-y-4 font-medium leading-relaxed">
+        <div className="text-lg text-blue-100/90 max-w-3xl mx-auto relative z-10 space-y-4 font-medium leading-relaxed">
           <p>
             The next version of your life could be in Singapore, Australia, Canada, Europe or anywhere your ambition takes you.
           </p>

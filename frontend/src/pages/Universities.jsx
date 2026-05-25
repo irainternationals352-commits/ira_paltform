@@ -46,11 +46,19 @@ const Universities = () => {
   return (
     <div className="bg-light-50 min-h-screen">
       {/* Header */}
-      <div className="bg-gradient-to-r from-primary-900 via-primary-800 to-primary-700 text-white pt-40 pb-28 px-4 text-center relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg width=\\'60\\' height=\\'60\\' viewBox=\\'0 0 60 60\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cg fill=\\'none\\' fill-rule=\\'evenodd\\'%3E%3Cg fill=\\'%23ffffff\\' fill-opacity=\\'1\\'%3E%3Cpath d=\\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')"}}></div>
-        <h1 className="text-5xl lg:text-6xl font-extrabold mb-6 relative z-10">Access World-Class Education Across The Globe.</h1>
+      <div className="relative pt-40 pb-28 px-4 text-center overflow-hidden bg-[#062544]">
+        {/* Background Image */}
+        <img 
+          src="/universities_bg.jpeg" 
+          alt="" 
+          className="absolute inset-0 w-full h-full object-cover" 
+        />
+        {/* Dark Premium Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#031122]/90 via-[#09223c]/85 to-[#05162b]/90"></div>
+        
+        <h1 className="text-5xl lg:text-6xl font-extrabold mb-6 relative z-10 text-white uppercase tracking-wider">Access World-Class Education Across The Globe.</h1>
         <div className="w-24 h-1.5 bg-secondary-500 mx-auto rounded-full mb-8 relative z-10"></div>
-        <p className="text-xl text-primary-100 max-w-3xl mx-auto relative z-10">
+        <p className="text-xl text-blue-100/90 max-w-3xl mx-auto relative z-10 font-medium leading-relaxed">
           IRA International partners with internationally recognized universities and colleges to help students unlock global education, international careers, and future-focused opportunities.
         </p>
 

@@ -37,7 +37,7 @@ const Services = () => {
       <div className="relative pt-40 pb-28 px-4 text-center overflow-hidden bg-[#062544]">
         {/* Background Image */}
         <img 
-          src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1600&q=72" 
+          src="/services_bg.jpeg" 
           alt="" 
           className="absolute inset-0 w-full h-full object-cover" 
         />

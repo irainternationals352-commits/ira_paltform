@@ -38,7 +38,7 @@ const Navbar = () => {
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="flex items-center gap-3">
               <img 
-                src="/logo.png" 
+                src="/ira_logo.jpeg" 
                 alt={`${company.name} logo`} 
                 className="h-12 w-auto max-w-[190px] object-contain shrink-0" 
                 style={{ height: '48px', width: 'auto', display: 'block', objectFit: 'contain' }} 
