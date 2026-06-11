@@ -38,9 +38,9 @@ const Navbar = () => {
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="flex items-center gap-3">
               <img
-                src="/logo.png"
+                src="/header-logo.png"
                 alt={`${company.name} logo`}
-                className="h-14 w-auto max-w-full object-contain shrink-0"
+                className="h-14 w-auto max-w-[230px] object-contain shrink-0 sm:h-16"
               />
               <span className="sr-only">
                 {company.name}
