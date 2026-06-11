@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { api } from '../services/api';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { FaMapMarkerAlt, FaArrowRight, FaSearch } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaArrowRight, FaSearch, FaTimes } from 'react-icons/fa';
 import { resolveMediaUrl } from '../utils/media';
 
 const normalizeSearch = (value) => String(value || '').toLowerCase().trim();
@@ -63,16 +63,27 @@ const Universities = () => {
         </p>
 
         {/* Search Bar */}
-        <div className="max-w-2xl mx-auto mt-10 relative z-10 px-4">
-          <div className="relative">
-            <input 
-              type="text" 
-              placeholder="Search by university, program, country, city, or location..." 
+        <div className="max-w-3xl mx-auto mt-10 relative z-10 px-4">
+          <div className="relative rounded-2xl bg-white p-1.5 shadow-2xl ring-1 ring-white/40">
+            <FaSearch className="pointer-events-none absolute left-6 top-1/2 -translate-y-1/2 text-primary-500 text-xl" />
+            <input
+              type="search"
+              aria-label="Search universities"
+              placeholder="Search universities, programs, countries or cities"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-6 py-4 rounded-full text-dark-900 font-medium focus:outline-none focus:ring-4 focus:ring-primary-500/30 shadow-2xl pl-14"
+              className="w-full rounded-xl border border-gray-200 bg-white py-4 pl-14 pr-14 text-base font-semibold text-dark-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-4 focus:ring-primary-500/20"
             />
-            <FaSearch className="absolute left-6 top-1/2 transform -translate-y-1/2 text-gray-400 text-lg" />
+            {searchTerm && (
+              <button
+                type="button"
+                onClick={() => setSearchTerm('')}
+                aria-label="Clear university search"
+                className="absolute right-5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full text-gray-400 transition-colors hover:bg-primary-50 hover:text-primary-600"
+              >
+                <FaTimes />
+              </button>
+            )}
           </div>
         </div>
       </div>
