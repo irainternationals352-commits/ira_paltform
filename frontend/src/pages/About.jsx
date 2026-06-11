@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { api } from '../services/api';
 import { motion } from 'framer-motion';
 import { resolveMediaUrl } from '../utils/media';
-import { FaGlobe, FaCompass, FaHeart, FaUserTie } from 'react-icons/fa';
+import { FaGlobe } from 'react-icons/fa';
 
 const About = () => {
   const [data, setData] = useState(null);
@@ -28,7 +28,7 @@ const About = () => {
           className="absolute inset-0 w-full h-full object-cover" 
         />
         {/* Dark Premium Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#061f3a]/92 via-[#0b2f59]/88 to-[#061f3a]/92"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0D355C]/92 via-[#0D355C]/84 to-[#0D355C]/92"></div>
         
         <motion.h1 
           initial={{ opacity: 0, y: -20 }}
@@ -50,9 +50,6 @@ const About = () => {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <span className="text-primary-600 font-bold text-xs uppercase tracking-[0.25em] inline-block bg-primary-50 px-3.5 py-1.5 rounded-full border border-primary-100/80 shadow-sm mb-2">
-              Who We Are
-            </span>
             <h2 className="text-3xl md:text-4.5xl font-black text-dark-900 leading-tight">
               More Than A Consultancy.<br />
               <span className="text-primary-500">A Global Lifestyle Brand.</span>
@@ -67,7 +64,7 @@ const About = () => {
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="absolute -inset-4 bg-gradient-to-tr from-primary-500 to-secondary-500 rounded-3xl opacity-20 blur-xl"></div>
+            <div className="absolute -inset-4 bg-primary-500 rounded-3xl opacity-20 blur-xl"></div>
             <img 
               src={data.image ? resolveMediaUrl(data.image) : "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80"} 
               alt="About IRA International" 
@@ -87,15 +84,11 @@ const About = () => {
           <div className="absolute -right-16 -top-16 w-48 h-48 bg-primary-500/10 rounded-full blur-2xl"></div>
           <div className="absolute left-10 bottom-0 w-64 h-64 bg-secondary-400/5 rounded-full blur-3xl -z-10"></div>
           
-          <div className="flex flex-col lg:flex-row gap-12 items-start relative z-10">
-            <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-primary-600 to-primary-800 text-white flex items-center justify-center text-4xl shrink-0 shadow-lg shadow-primary-600/20 ring-4 ring-primary-50">
-              <FaUserTie />
-            </div>
-            
+          <div className="relative z-10">
             <div className="space-y-6">
               <h3 className="text-3xl md:text-3.5xl font-black text-dark-900 leading-tight">
                 Founder’s Global Vision <br className="hidden sm:inline" />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-secondary-500">& International Experience</span>
+                <span className="text-primary-500">& International Experience</span>
               </h3>
               
               <div className="space-y-5 text-lg text-gray-600 leading-relaxed font-medium">
@@ -122,7 +115,7 @@ const About = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="bg-gradient-to-br from-[#031122] via-[#09223c] to-[#05162b] rounded-3xl p-8 md:p-12 text-white shadow-2xl relative overflow-hidden h-full flex flex-col justify-center border border-primary-950/80"
+            className="bg-gradient-to-br from-[#082B4C] via-[#0D355C] to-[#123F67] rounded-3xl p-8 md:p-12 text-white shadow-2xl relative overflow-hidden h-full flex flex-col justify-center border border-white/10"
           >
             {/* Glowing blur shape */}
             <div className="absolute right-0 bottom-0 w-32 h-32 bg-secondary-500/10 rounded-full blur-2xl"></div>

@@ -3,7 +3,7 @@ import { api } from '../services/api';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import * as Icons from 'react-icons/fa';
-import { FaGlobeAmericas, FaArrowRight } from 'react-icons/fa';
+import { FaArrowRight, FaBriefcase, FaGlobeAmericas, FaPassport, FaPlaneDeparture, FaUniversity } from 'react-icons/fa';
 import { company } from '../config/company';
 import { resolveMediaUrl } from '../utils/media';
 
@@ -12,6 +12,8 @@ const heroSlides = [
   '/hero2.jpeg',
   '/hero3.jpeg'
 ];
+
+const serviceIcons = [FaUniversity, FaPassport, FaPlaneDeparture, FaBriefcase];
 
 const Home = () => {
   const [data, setData] = useState(null);
@@ -66,7 +68,7 @@ const Home = () => {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <section className="relative min-h-[760px] pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden bg-[#062544]">
+      <section className="relative min-h-[760px] pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden bg-[#0D355C]">
         {heroSlides.map((image, index) => (
           <img
             key={image}
@@ -78,8 +80,8 @@ const Home = () => {
             aria-hidden={index !== heroSlideIndex}
           />
         ))}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#061f3a] via-[#0b2f59]/82 to-[#0b2f59]/38"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-[#061f3a]/70 via-transparent to-white/5"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0D355C]/95 via-[#0D355C]/78 to-[#0D355C]/32"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0D355C]/65 via-transparent to-white/10"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-12 items-center min-h-[560px]">
             
@@ -106,9 +108,9 @@ const Home = () => {
                       transition={{ duration: 0.4 }}
                       className="block"
                     >
-                      {taglineIndex === 0 && <>Build The <span className="text-[#74bdf2]">Future</span> Others Wish For</>}
-                      {taglineIndex === 1 && <>Build The <span className="text-[#74bdf2]">Life</span> Most People Only Imagine</>}
-                      {taglineIndex === 2 && <>Live The <span className="text-[#74bdf2]">Global Life</span> You Deserve</>}
+                      {taglineIndex === 0 && <>Build The <span className="text-[#79B586]">Future</span> Others Wish For</>}
+                      {taglineIndex === 1 && <>Build The <span className="text-[#79B586]">Life</span> Most People Only Imagine</>}
+                      {taglineIndex === 2 && <>Live The <span className="text-[#79B586]">Global Life</span> You Deserve</>}
                     </motion.span>
                   </AnimatePresence>
                 </span>
@@ -118,10 +120,10 @@ const Home = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link to={data.button_link} className="bg-[#0072bc] hover:bg-[#005f9f] text-white px-8 py-4 rounded-full text-lg font-bold transition-all shadow-lg shadow-black/25 flex items-center justify-center gap-2 transform hover:-translate-y-1">
+                <Link to={data.button_link} className="bg-primary-500 hover:bg-primary-600 text-white px-8 py-4 rounded-full text-lg font-bold transition-all shadow-lg shadow-black/25 flex items-center justify-center gap-2 transform hover:-translate-y-1">
                   {data.button_text} <FaArrowRight />
                 </Link>
-                <Link to="/services" className="bg-white/95 hover:bg-white text-[#061f3a] border border-white/30 px-8 py-4 rounded-full text-lg font-bold transition-all flex items-center justify-center transform hover:-translate-y-1">
+                <Link to="/services" className="bg-white/95 hover:bg-white text-[#0D355C] border border-white/30 px-8 py-4 rounded-full text-lg font-bold transition-all flex items-center justify-center transform hover:-translate-y-1">
                   Explore Services
                 </Link>
               </div>
@@ -152,26 +154,26 @@ const Home = () => {
             >
               <div className="absolute right-0 top-4 w-[440px] overflow-hidden rounded-3xl border border-white/20 bg-white/10 p-3 shadow-2xl backdrop-blur-md">
                 <div
-                  className="h-72 w-full rounded-2xl bg-[#0b2f59] bg-cover bg-center transition-all duration-700"
+                  className="h-72 w-full rounded-2xl bg-[#0D355C] bg-cover bg-center transition-all duration-700"
                   style={{ backgroundImage: `url("${resolveMediaUrl(heroSlides[(heroSlideIndex + 1) % heroSlides.length])}")` }}
                   aria-hidden="true"
                 />
               </div>
               <div className="absolute left-10 bottom-24 w-64 overflow-hidden rounded-3xl border border-white/25 bg-white/10 p-3 shadow-2xl backdrop-blur-md">
                 <div
-                  className="h-44 w-full rounded-2xl bg-[#0b2f59] bg-cover bg-center transition-all duration-700"
+                  className="h-44 w-full rounded-2xl bg-[#0D355C] bg-cover bg-center transition-all duration-700"
                   style={{ backgroundImage: `url("${resolveMediaUrl(heroSlides[(heroSlideIndex + 3) % heroSlides.length])}")` }}
                   aria-hidden="true"
                 />
               </div>
               
               <div className="absolute bottom-8 right-14 bg-white p-4 rounded-2xl shadow-xl border border-white/70 flex items-center gap-4">
-                <div className="w-12 h-12 bg-[#e8f4ff] text-[#0072bc] rounded-full flex items-center justify-center text-2xl">
+                <div className="w-12 h-12 bg-primary-50 text-primary-500 rounded-full flex items-center justify-center text-2xl">
                   <FaGlobeAmericas />
                 </div>
                 <div>
                   <p className="text-sm text-gray-500 font-semibold">Global Network</p>
-                  <p className="font-bold text-[#061f3a]">{company.statCountries}</p>
+                  <p className="font-bold text-[#0D355C]">{company.statCountries}</p>
                 </div>
               </div>
             </motion.div>
@@ -216,10 +218,7 @@ const Home = () => {
                   className="bg-light-50 p-8 rounded-3xl border border-gray-100 hover:border-primary-200 shadow-sm hover:shadow-xl transition-all group h-full cursor-pointer"
                 >
                   <div className="w-16 h-16 bg-white shadow-sm border border-gray-100 text-primary-600 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:bg-primary-600 group-hover:text-white transition-colors duration-300">
-                    {(() => {
-                      const IconComp = Icons[service.icon] || Icons.FaGraduationCap;
-                      return <IconComp />;
-                    })()}
+                    {React.createElement(serviceIcons[index] || Icons[service.icon] || Icons.FaGraduationCap)}
                   </div>
                   <h3 className="text-xl font-bold text-dark-900 mb-3">{service.title}</h3>
                   <p className="text-gray-600 mb-6 leading-relaxed">{service.short_description}</p>
@@ -234,13 +233,13 @@ const Home = () => {
       </section>
 
       {/* Top Destinations */}
-      <section className="py-24 bg-[#0b2f59] text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(0,101,177,0.36),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.08),transparent_38%)]"></div>
+      <section className="py-24 bg-[#0D355C] text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(74,144,90,0.30),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.08),transparent_38%)]"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative z-10 flex flex-col md:flex-row justify-between items-end mb-16">
             <div className="max-w-2xl">
               <h2 className="text-4xl font-extrabold mb-4">Top Destinations</h2>
-              <div className="w-24 h-1.5 bg-[#0072bc] rounded-full mb-6"></div>
+              <div className="w-24 h-1.5 bg-primary-500 rounded-full mb-6"></div>
               <p className="text-xl text-blue-100/85">Discover world-class education systems and find the perfect country for your career goals.</p>
             </div>
             <Link to="/countries" className="hidden md:flex items-center gap-2 text-blue-100 font-bold hover:text-white transition-colors">
@@ -256,16 +255,16 @@ const Home = () => {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="relative rounded-2xl overflow-hidden h-96 group cursor-pointer shadow-2xl ring-1 ring-white/12 bg-[#092744]"
+                  className="relative rounded-2xl overflow-hidden h-96 group cursor-pointer shadow-2xl ring-1 ring-white/12 bg-[#0D355C]"
                 >
                   <img src={resolveMediaUrl(country.banner_image)} alt={country.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#061f3a] via-[#0b2f59]/72 to-[#0072bc]/10 opacity-95 group-hover:opacity-100 transition-opacity"></div>
-                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#0072bc] via-white/70 to-[#0b2f59] opacity-80"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0D355C] via-[#0D355C]/70 to-[#4A905A]/10 opacity-95 group-hover:opacity-100 transition-opacity"></div>
+                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#4A905A] via-white/70 to-[#0D355C] opacity-80"></div>
                   
                   <div className="absolute bottom-0 left-0 w-full p-8 transform group-hover:-translate-y-2 transition-transform duration-300">
                     <h3 className="text-3xl font-bold text-white mb-2">{country.name}</h3>
                     <p className="text-blue-50/85 text-sm mb-4 line-clamp-2">{country.short_description}</p>
-                    <span className="text-white font-bold inline-flex items-center gap-2 rounded-full bg-[#0072bc]/85 px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                    <span className="text-white font-bold inline-flex items-center gap-2 rounded-full bg-primary-500/90 px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
                       View Details <FaArrowRight />
                     </span>
                   </div>
@@ -283,7 +282,7 @@ const Home = () => {
       </section>
 
       {/* Vibrant CTA Section */}
-      <section className="py-24 relative overflow-hidden bg-[#062544]">
+      <section className="py-24 relative overflow-hidden bg-[#0D355C]">
         {/* Background Image */}
         <img 
           src="/home_cta_bg.jpeg" 
@@ -291,7 +290,7 @@ const Home = () => {
           className="absolute inset-0 w-full h-full object-cover" 
         />
         {/* Dark Premium Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#031122]/90 via-[#09223c]/85 to-[#05162b]/90"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0D355C]/88 via-[#0D355C]/80 to-[#0D355C]/88"></div>
         
         <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
           <motion.h2 
@@ -317,7 +316,7 @@ const Home = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <Link to="/contact" className="bg-white text-primary-900 px-10 py-5 rounded-full text-xl font-extrabold hover:bg-primary-50 hover:scale-105 transition-all inline-flex items-center gap-3 shadow-2xl">
+            <Link to="/contact" className="bg-primary-500 text-white px-10 py-5 rounded-full text-xl font-extrabold hover:bg-primary-600 hover:scale-105 transition-all inline-flex items-center gap-3 shadow-2xl">
               Talk to an Expert Today <FaArrowRight />
             </Link>
           </motion.div>

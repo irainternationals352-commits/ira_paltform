@@ -47,10 +47,10 @@ const Contact = () => {
           className="absolute inset-0 w-full h-full object-cover" 
         />
         {/* Dark Premium Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#031122]/90 via-[#09223c]/85 to-[#05162b]/90"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0D355C]/90 via-[#0D355C]/82 to-[#0D355C]/90"></div>
         
         <h1 className="text-5xl lg:text-6xl font-extrabold mb-4 relative z-10 text-white uppercase tracking-wide">CONTACT US</h1>
-        <h2 className="text-2xl lg:text-3xl font-extrabold mb-6 text-secondary-400 relative z-10">Your Future Was Never Meant To Stay Local.</h2>
+        <h2 className="text-2xl lg:text-3xl font-extrabold mb-6 text-primary-400 relative z-10">Your Future Was Never Meant To Stay Local.</h2>
         <div className="w-24 h-1.5 bg-secondary-500 mx-auto rounded-full mb-8 relative z-10"></div>
         <div className="text-lg text-blue-100/90 max-w-3xl mx-auto relative z-10 space-y-4 font-medium leading-relaxed">
           <p>

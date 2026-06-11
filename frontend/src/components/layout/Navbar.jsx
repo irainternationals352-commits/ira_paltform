@@ -37,11 +37,10 @@ const Navbar = () => {
           {/* Logo Section */}
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="flex items-center gap-3">
-              <img 
-                src="/ira_logo_clean.png" 
-                alt={`${company.name} logo`} 
-                className="h-16 w-auto max-w-full object-contain shrink-0" 
-                style={{ height: '58px', width: 'auto', display: 'block', objectFit: 'contain' }} 
+              <img
+                src="/logo.png"
+                alt={`${company.name} logo`}
+                className="h-14 w-auto max-w-full object-contain shrink-0"
               />
               <span className="sr-only">
                 {company.name}
@@ -69,7 +68,7 @@ const Navbar = () => {
             })}
             <Link 
               to="/contact"
-              className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2.5 rounded-full font-bold transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+              className="bg-primary-500 hover:bg-primary-600 text-white px-6 py-2.5 rounded-full font-bold transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
             >
               Apply Now
             </Link>

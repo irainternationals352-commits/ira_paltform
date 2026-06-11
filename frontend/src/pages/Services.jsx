@@ -42,7 +42,7 @@ const Services = () => {
           className="absolute inset-0 w-full h-full object-cover" 
         />
         {/* Dark Premium Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#031122]/92 via-[#09223c]/88 to-[#05162b]/92"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0D355C]/92 via-[#0D355C]/84 to-[#0D355C]/92"></div>
         
         <h1 className="text-5xl lg:text-6xl font-extrabold mb-6 relative z-10 text-white uppercase tracking-wider">Our Services</h1>
         <div className="w-24 h-1.5 bg-secondary-500 mx-auto rounded-full mb-8 relative z-10"></div>

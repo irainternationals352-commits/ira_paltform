@@ -199,7 +199,7 @@ const UniversityDetail = () => {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 }}
-              className="bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 rounded-3xl p-8 shadow-xl border border-primary-800 sticky top-32 text-white"
+              className="bg-gradient-to-br from-[#0D355C] via-[#123F67] to-[#174B75] rounded-3xl p-8 shadow-xl border border-white/10 sticky top-32 text-white"
             >
               <div className="text-center mb-8 border-b border-primary-700 pb-8">
                 <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center text-3xl mx-auto mb-4 border border-white/20">

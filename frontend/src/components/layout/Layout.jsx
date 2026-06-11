@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import FloatingContact from './FloatingContact';
 import { Outlet } from 'react-router-dom';
 
 const Layout = () => {
@@ -11,6 +12,7 @@ const Layout = () => {
         <Outlet />
       </main>
       <Footer />
+      <FloatingContact />
     </div>
   );
 };

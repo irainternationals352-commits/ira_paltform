@@ -35,7 +35,7 @@ const ServiceDetail = () => {
       <div className="relative pt-40 pb-32 px-4 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img src={resolveMediaUrl(service.image)} alt={service.title} className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-dark-900 via-dark-900/90 to-dark-900/40"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0D355C] via-[#0D355C]/90 to-[#0D355C]/40"></div>
         </div>
         
         <div className="max-w-7xl mx-auto relative z-10">
@@ -131,7 +131,7 @@ const ServiceDetail = () => {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 }}
-              className="bg-gradient-to-br from-primary-900 to-primary-700 rounded-3xl p-8 shadow-2xl sticky top-32 text-white"
+              className="bg-gradient-to-br from-[#0D355C] to-[#174B75] rounded-3xl p-8 shadow-2xl sticky top-32 text-white"
             >
               <h3 className="text-2xl font-bold mb-4">Start Your Journey Today</h3>
               <p className="text-primary-100 mb-8 leading-relaxed">
@@ -140,13 +140,13 @@ const ServiceDetail = () => {
               
               <ul className="space-y-4 mb-8">
                 <li className="flex items-center gap-3">
-                  <FaCheckCircle className="text-secondary-400" /> Free Profile Evaluation
+                  <FaCheckCircle className="text-primary-400" /> Free Profile Evaluation
                 </li>
                 <li className="flex items-center gap-3">
-                  <FaCheckCircle className="text-secondary-400" /> 1-on-1 Mentorship
+                  <FaCheckCircle className="text-primary-400" /> 1-on-1 Mentorship
                 </li>
                 <li className="flex items-center gap-3">
-                  <FaCheckCircle className="text-secondary-400" /> Clear Roadmap
+                  <FaCheckCircle className="text-primary-400" /> Clear Roadmap
                 </li>
               </ul>
 

@@ -31,9 +31,11 @@ const Footer = () => {
           
           {/* Company Info */}
           <div>
-            <h3 className="text-2xl font-bold text-primary-500 mb-6">
-              {company.name}
-            </h3>
+            <img
+              src="/logo-white.png"
+              alt={`${company.name} logo`}
+              className="mb-6 h-16 w-auto"
+            />
             {company.footerDescription && (
               <p className="text-gray-400 mb-6 leading-relaxed">
                 {company.footerDescription}

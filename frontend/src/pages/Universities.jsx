@@ -54,9 +54,9 @@ const Universities = () => {
           className="absolute inset-0 w-full h-full object-cover" 
         />
         {/* Dark Premium Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#031122]/90 via-[#09223c]/85 to-[#05162b]/90"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0D355C]/90 via-[#0D355C]/82 to-[#0D355C]/90"></div>
         
-        <h1 className="text-5xl lg:text-6xl font-extrabold mb-6 relative z-10 text-white uppercase tracking-wider">Access World-Class Education Across The Globe.</h1>
+        <h1 className="text-4xl lg:text-5xl font-extrabold mb-6 relative z-10 text-white uppercase tracking-wide">Access World-Class Education Across The Globe.</h1>
         <div className="w-24 h-1.5 bg-secondary-500 mx-auto rounded-full mb-8 relative z-10"></div>
         <p className="text-xl text-blue-100/90 max-w-3xl mx-auto relative z-10 font-medium leading-relaxed">
           IRA International partners with internationally recognized universities and colleges to help students unlock global education, international careers, and future-focused opportunities.

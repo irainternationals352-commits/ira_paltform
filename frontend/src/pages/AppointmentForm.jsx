@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { api } from '../services/api';
-import { FaCalendarCheck, FaArrowLeft, FaClock, FaUserAlt } from 'react-icons/fa';
+import { FaCalendarCheck, FaArrowLeft, FaClock } from 'react-icons/fa';
 
 const AppointmentForm = () => {
   const location = useLocation();
@@ -54,7 +54,7 @@ const AppointmentForm = () => {
         </Link>
 
         <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
-          <div className="bg-gradient-to-r from-primary-900 to-primary-700 p-8 text-white text-center">
+          <div className="bg-gradient-to-r from-[#0D355C] to-[#4A905A] p-8 text-white text-center">
             <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
               <FaCalendarCheck />
             </div>
@@ -89,13 +89,10 @@ const AppointmentForm = () => {
                     className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl text-dark-900 focus:bg-white focus:ring-2 focus:ring-primary-500 transition-all appearance-none outline-none"
                   >
                     <option value="" disabled>Select a Service</option>
-                    <option value="Career Counselling">Career Counselling</option>
-                    <option value="University Selection">University Selection</option>
-                    <option value="Application Assistance">Application & SOP Assistance</option>
-                    <option value="Visa Guidance">Visa Guidance</option>
-                    <option value="Test Preparation">IELTS / PTE Preparation</option>
-                    <option value="Education Loan">Education Loan Assistance</option>
-                    <option value="Other">Other</option>
+                    <option value="Study Abroad">Study Abroad</option>
+                    <option value="Immigration & Residency">Immigration & Residency</option>
+                    <option value="Business & Investment Services">Business & Investment Services</option>
+                    <option value="Scholarship Guidance">Scholarship Guidance</option>
                   </select>
                 </div>
               </div>
