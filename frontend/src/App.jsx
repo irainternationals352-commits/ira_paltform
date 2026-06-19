@@ -23,6 +23,7 @@ import UniversitiesManager from './pages/admin/UniversitiesManager';
 import CountriesManager from './pages/admin/CountriesManager';
 import ServicesManager from './pages/admin/ServicesManager';
 import ProgramsManager from './pages/admin/ProgramsManager';
+import FacebookPixel from './components/FacebookPixel';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -43,6 +44,7 @@ function App() {
     <AuthProvider>
       <Router>
         <ScrollToTop />
+        <FacebookPixel />
         <Routes>
           {/* Admin Routes */}
           <Route path="/admin-login" element={<AdminLogin />} />

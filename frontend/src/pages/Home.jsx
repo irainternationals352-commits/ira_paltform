@@ -187,7 +187,7 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16 max-w-3xl mx-auto">
             <h2 className="text-4xl font-extrabold text-dark-900 mb-4">Our Premium Services</h2>
-            <div className="w-24 h-1.5 bg-primary-500 mx-auto rounded-full mb-8"></div>
+            <div className="w-24 h-1.5 bg-secondary-500 mx-auto rounded-full mb-8"></div>
             
             <p className="text-xl md:text-2xl font-extrabold text-dark-900 mb-6 leading-relaxed">
               <span className="text-primary-600 block md:inline md:mr-2">We are not just another consultancy.</span>
@@ -239,7 +239,7 @@ const Home = () => {
           <div className="relative z-10 flex flex-col md:flex-row justify-between items-end mb-16">
             <div className="max-w-2xl">
               <h2 className="text-4xl font-extrabold mb-4">Top Destinations</h2>
-              <div className="w-24 h-1.5 bg-primary-500 rounded-full mb-6"></div>
+              <div className="w-24 h-1.5 bg-secondary-500 rounded-full mb-6"></div>
               <p className="text-xl text-blue-100/85">Discover world-class education systems and find the perfect country for your career goals.</p>
             </div>
             <Link to="/countries" className="hidden md:flex items-center gap-2 text-blue-100 font-bold hover:text-white transition-colors">
